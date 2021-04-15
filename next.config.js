@@ -1,7 +1,7 @@
 const withMdxEnhanced = require("next-mdx-enhanced");
 const rehypePrism = require("@mapbox/rehype-prism");
 const readingTime = require("./utils/readingTime");
-const sizeOf = require("image-size")
+const sizeOf = require("image-size");
 
 module.exports = withMdxEnhanced({
   layoutPath: "layouts",
@@ -31,8 +31,8 @@ module.exports = withMdxEnhanced({
             publicPath: "/_next",
             name: "static/media/[name].[hash].[ext]",
             generateMetadata: (path) => {
-              return sizeOf(path)
-            }
+              return sizeOf(path);
+            },
           },
         },
       ],
