@@ -6,9 +6,7 @@ import { getHumanizedDate } from "utils/date";
 import { WEBSITE_URL } from "utils/configuration";
 import useColors from "hooks/useColors";
 
-export default function BlogLayout({ frontMatter, children }) {
-  const slug = frontMatter.__resourcePath.replace("blog/", "").replace(".mdx", "");
-
+export default function BlogLayout({ frontMatter, slug, children }) {
   const { secondaryTextColor } = useColors();
 
   return (

@@ -4,7 +4,7 @@ import BlogLayout from 'layouts/BlogPost';
 import { getFileBySlug, getFiles } from 'utils/mdx';
 import MDXComponents from 'components/MDXComponents';
 
-const Blog = ({ post, ogImage }) => {
+const Blog = ({ post, slug }) => {
     const { isFallback } = useRouter();
 
     if (isFallback || !post) {
@@ -12,7 +12,7 @@ const Blog = ({ post, ogImage }) => {
     }
 
     return (
-        <BlogLayout frontMatter={post.frontMatter} ogImage={ogImage}>
+        <BlogLayout frontMatter={post.frontMatter} slug={slug}>
             <MDXRemote
                 {...post.mdxSource}
                 components={{
@@ -42,7 +42,7 @@ export const getStaticProps = async ({ params }) => {
     try {
         const post = await getFileBySlug(params.slug);
 
-        return { props: { post, ogImage, tweets } };
+        return { props: { post, slug: params.slug } };
     } catch (error) {
         // eslint-disable-next-line
         console.log(error);
