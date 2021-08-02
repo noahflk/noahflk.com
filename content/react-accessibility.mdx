@@ -4,10 +4,6 @@ publishedAt: "2020-09-29"
 summary: "An introduction to building accessible interactive React applications"
 ---
 
-import colorContrast from "./color-contrast.png";
-import semanticElements from "./semantic-elements.png";
-import progressBar from "./progress-bar.png";
-
 # Introduction
 
 Accessible websites can be used by everyone, regardless of their abilities. Designing and building accessible websites means ensuring they work with assistive technologies like screen readers or keyboard navigation and for people with color deficiencies.
@@ -22,7 +18,7 @@ But even without considering JavaScript, there are a few things you can do which
 
 The [WCAG 2](https://www.w3.org/TR/WCAG20/) spec defines color contrast as the perceived brightness between two colors. This is expressed as a ratio ranging from 1:1 (white text on white background) to 21:1 (black text on white background).
 
-<img {...colorContrast} alt="Illustration of different contrast ratios" />
+<Image src="/static/images/color-contrast.png" alt="Illustration of different contrast ratios" />
 
 _Illustration by [Accessible Web](https://accessibleweb.com/tips-tools-tutorials/designing-accessibility-mind/)._
 
@@ -87,8 +83,8 @@ Semantic HTML elements are elements that convey their meaning to both the develo
 
 Instead of relying on divs for your application layout, use the appropriate semantic elements HTML provides you. This helps screen readers and other tools identify the relevant content.
 
-<img
-  {...semanticElements}
+<Image
+  src="/static/images/semantic-elements.png"
   alt="Comparison between semantic elements like header, article, figure, and footer versus divs everywhere for a page layout"
 />
 
@@ -139,7 +135,7 @@ In the next chapter, we're going to examine how you can use ARIA to make React c
 
 Take a normal progress bar like this one. Now, imagine, how would anyone who relies on a screen reader be able to understand its content? All the information is hidden within the styling, which is useless for a screen reader. The markup could be as little as one empty div.
 
-<img {...progressBar} alt="Progress bar without any labelling" />
+<Image src="/static/images/progress-bar.png" alt="Progress bar without any labelling" />
 
 Thanks to ARIA, we can utilize a few attributes to make this component fully accessible.
 

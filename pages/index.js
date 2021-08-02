@@ -5,7 +5,7 @@ import Layout from "components/Layout";
 import BlogPostPreview from "components/BlogPostPreview";
 import ProjectCard from "components/ProjectCard";
 import useColors from "hooks/useColors";
-import { getAllPosts } from "utils/posts";
+import { getAllFilesFrontMatter } from "utils/mdx";
 
 const Index = ({ posts }) => {
   const { secondaryTextColor } = useColors();
@@ -68,10 +68,10 @@ const Index = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-  const posts = getAllPosts().slice(0, 3);
+  const posts = await getAllFilesFrontMatter();
 
   return {
-    props: { posts },
+    props: { posts: posts.slice(0, 3) },
   };
 }
 

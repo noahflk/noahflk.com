@@ -4,7 +4,7 @@ import { Heading, Flex, Stack } from "@chakra-ui/react";
 import Layout from "components/Layout";
 import BlogPostPreview from "components/BlogPostPreview";
 import { WEBSITE_URL, AUTHOR } from "utils/configuration";
-import { getAllPosts } from "utils/posts";
+import { getAllFilesFrontMatter } from "utils/mdx";
 
 const url = `${WEBSITE_URL}/blog`;
 const title = `Blog – ${AUTHOR}`;
@@ -56,11 +56,10 @@ const Blog = ({ posts }) => (
 );
 
 export async function getStaticProps() {
-  const posts = getAllPosts();
+  const posts = await getAllFilesFrontMatter();
 
-  return {
-    props: { posts },
-  };
+  return { props: { posts } };
 }
+
 
 export default Blog;
