@@ -4,8 +4,6 @@ publishedAt: "2020-11-16"
 summary: "This is everything I did to add Image Optimization to my Next.js blog. It makes it possible to add new images with zero additional effort while still enjoying the benefits of this new Next.js feature."
 ---
 
-import CLS from "./cls.png"
-
 In October Vercel [released](https://nextjs.org/blog/next-10) Next.js 10 which includes a component for automatic image optimization. This component decreases loading times by using a couple of smart techniques, like dynamically serving the image in the size it gets rendered at or lazy-loading images.
 
 Vercel advertises the next/image component as a drop-in replacement for the HTML `<img>` element.
@@ -24,7 +22,7 @@ import Image from 'next/image'
 
 `next/image` requires the developer to specify a width and height for the image to avoid Cumulative Layout Shift. When you don't specify with and height attributes on an image the browser won't know how much space the image will take up until the image has loaded. This causes the content below the image to change position because space is needed to display the loaded image.
 
-<Image src={CLS} alt="A visual example that shows how cumulative layout shift works" />
+<Image src="/static/images/CLS.png" width={1600} height={1200} alt="A visual example that shows how cumulative layout shift works" />
 _[Source](https://web.dev/cls/)_
 
 ## Status quo
