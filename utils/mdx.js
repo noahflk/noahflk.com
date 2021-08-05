@@ -33,14 +33,10 @@ export async function getFileBySlug(slug) {
             rehypePlugins: [mdxPrism]
         }
     });
-    const tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-    const tweetIDs = tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]);
 
     return {
         mdxSource,
-        tweetIDs: tweetIDs || [],
         frontMatter: {
-            wordCount: content.split(/\s+/gu).length,
             readingTime: readingTime(content),
             slug: slug || null,
             ...data
@@ -56,12 +52,13 @@ export async function getAllFilesFrontMatter() {
             path.join(root, POST_DIR, postSlug),
             'utf8'
         );
-        const { data } = matter(source);
+        const { data, content } = matter(source);
 
         return [
             {
                 ...data,
-                slug: postSlug.replace('.mdx', '')
+                slug: postSlug.replace('.mdx', ''),
+                readingTime: readingTime(content),
             },
             ...allPosts
         ];
