@@ -1,14 +1,14 @@
+/* eslint react/display-name: 0 */
+
 import { Box, Code, Heading, Kbd, Link, Text, Divider } from "@chakra-ui/react";
 import NextLink from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 
 import useColors from "hooks/useColors";
 
-
 const extraComponents = {
-  Image
-}
-
+  Image,
+};
 
 const TableHead = (props) => {
   const { secondaryBgColor, accentColor } = useColors();
@@ -69,7 +69,6 @@ const Hr = () => {
   return <Divider borderColor={borderColor} my={4} w="100%" />;
 };
 
-
 const MDXComponents = {
   h1: (props) => <Heading as="h1" size="xl" pt={3} {...props} />,
   h2: (props) => <Heading as="h2" size="lg" fontWeight="semibold" pt={2} {...props} />,
@@ -90,7 +89,7 @@ const MDXComponents = {
   ol: (props) => <Box as="ol" pt={2} pl={4} ml={2} {...props} />,
   li: (props) => <Box as="li" fontSize="lg" pb={1} {...props} />,
   blockquote: (props) => <Quote {...props} />,
-  ...extraComponents
-}
+  ...extraComponents,
+};
 
 export default MDXComponents;

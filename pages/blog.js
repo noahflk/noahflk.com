@@ -61,5 +61,4 @@ export async function getStaticProps() {
   return { props: { posts } };
 }
 
-
 export default Blog;
