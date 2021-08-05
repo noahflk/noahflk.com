@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useColorMode } from "@chakra-ui/react";
+import { ChakraProvider, useColorMode } from "@chakra-ui/react";
 import { Global, css } from "@emotion/react";
 import { DefaultSeo } from "next-seo";
 import { MDXProvider } from "@mdx-js/react";
@@ -7,8 +7,8 @@ import { MDXProvider } from "@mdx-js/react";
 import { prismLightTheme, prismDarkTheme } from "styles/prism";
 import SEO_CONFIG from "seo.config.js";
 import components from "components/MDXComponents";
-import { Chakra } from "components/Chakra";
 import useColors from "hooks/useColors";
+import theme from "styles/theme";
 
 const GlobalStyle = ({ children }) => {
   const { colorMode } = useColorMode();
@@ -50,24 +50,22 @@ const GlobalStyle = ({ children }) => {
   );
 };
 
-const App = ({ Component, pageProps, cookies }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
-      <Chakra cookies={cookies}>
+      <ChakraProvider theme={theme}>
         <MDXProvider components={components}>
           <GlobalStyle>
             <DefaultSeo {...SEO_CONFIG} />
             <Component {...pageProps} />
           </GlobalStyle>
         </MDXProvider>
-      </Chakra>
+      </ChakraProvider>
     </>
   );
 };
 
 export default App;
-
-export { getServerSideProps } from "components/Chakra";

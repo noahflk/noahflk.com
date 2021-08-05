@@ -4,8 +4,10 @@ const theme = extendTheme({
   fonts: {
     body: `Inter, system-ui, sans-serif`,
   },
-  useSystemColorMode: true,
-  initialColorMode: "light",
+  config: {
+    useSystemColorMode: true,
+    initialColorMode: "dark",
+  },
 });
 
 export default theme;
