@@ -1,7 +1,7 @@
 // Source: https://leerob.io/blog/nextjs-sitemap-robots
 
 const fs = require('fs');
-const globby = require('globby');
+const { globby } = require('globby');
 const prettier = require('prettier');
 
 (async () => {
