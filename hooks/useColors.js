@@ -2,7 +2,7 @@ import { useColorMode } from "@chakra-ui/react";
 
 const bgColor = {
   light: "#fefefe",
-  dark: "#10202C",
+  dark: "#16181d",
 };
 
 const secondaryBgColor = {

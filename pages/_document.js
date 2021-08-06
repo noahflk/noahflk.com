@@ -1,14 +1,13 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ColorModeScript } from "@chakra-ui/react";
-import { GoogleFonts } from "next-google-fonts";
 import theme from "styles/theme";
 
 class NextDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <GoogleFonts href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
         <Head>
+          <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
           <meta name="msapplication-TileColor" content="#1d3557" />
           <meta name="theme-color" content="#ffffff" />

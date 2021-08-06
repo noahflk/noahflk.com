@@ -33,7 +33,7 @@ const Blog = ({ posts }) => (
         maxWidth="800px"
       >
         <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" maxWidth="700px" width="100%">
-          <Heading letterSpacing="tight" mb={2} as="h1" size="2xl">
+          <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
             Blog
           </Heading>
         </Flex>

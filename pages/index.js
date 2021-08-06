@@ -20,7 +20,7 @@ const Index = ({ posts }) => {
         m="0 auto 4rem auto"
         maxWidth="800px"
       >
-        <Flex flexDirection="column" mb={8} justifyContent="flex-start" alignItems="flex-start" maxWidth="700px">
+        <Flex flexDirection="column" mb={4} justifyContent="flex-start" alignItems="flex-start" maxWidth="700px">
           <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
             Hi, I’m Noah{" "}
             <span role="img" aria-label="Waving hand">

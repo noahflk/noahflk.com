@@ -8,6 +8,13 @@ const theme = extendTheme({
     useSystemColorMode: true,
     initialColorMode: "dark",
   },
+  styles: {
+    global: (props) => ({
+      "html, body": {
+        background: props.colorMode === "dark" ? "#16181d" : "#fefefe",
+      },
+    }),
+  },
 });
 
 export default theme;
