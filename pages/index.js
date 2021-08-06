@@ -5,7 +5,7 @@ import Layout from "components/Layout";
 import BlogPostPreview from "components/BlogPostPreview";
 import ProjectCard from "components/ProjectCard";
 import useColors from "hooks/useColors";
-import { getAllPosts } from "utils/posts";
+import { getAllFilesFrontMatter } from "utils/mdx";
 
 const Index = ({ posts }) => {
   const { secondaryTextColor } = useColors();
@@ -20,7 +20,7 @@ const Index = ({ posts }) => {
         m="0 auto 4rem auto"
         maxWidth="800px"
       >
-        <Flex flexDirection="column" mb={8} justifyContent="flex-start" alignItems="flex-start" maxWidth="700px">
+        <Flex flexDirection="column" mb={4} justifyContent="flex-start" alignItems="flex-start" maxWidth="700px">
           <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
             Hi, I’m Noah{" "}
             <span role="img" aria-label="Waving hand">
@@ -68,10 +68,10 @@ const Index = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-  const posts = getAllPosts().slice(0, 3);
+  const posts = await getAllFilesFrontMatter();
 
   return {
-    props: { posts },
+    props: { posts: posts.slice(0, 3) },
   };
 }
 

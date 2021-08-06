@@ -1,18 +1,15 @@
 ## noahfalk.com
 
+This is the repository for my personal website and blog https://noahfalk.com built on top of Next.js and MDX.
+
 ## Running Locally
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
+# Install the dependencies
+yarn install
+# Run the development server
 yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 ## Technologies
 
@@ -20,7 +17,3 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 - [Vercel](https://vercel.com)
 - [MDX](https://github.com/mdx-js/mdx)
 - [Chakra UI](https://chakra-ui.com/)
-
-## Inspiration
-
-Thank you to [Lee Robinson](https://twitter.com/leeerob/) for open sourcing his [blog](https://github.com/leerob/leerob.io) that helped me put together Next.js, MDX and Chakra UI.

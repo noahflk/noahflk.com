@@ -56,7 +56,7 @@ const Footer = () => {
             </Center>
           </Link>
         </Stack>
-        <Text>Noah Falk {new Date().getFullYear()}</Text>
+        <Text>© Noah Falk {new Date().getFullYear()}</Text>
       </Flex>
     </Box>
   );
