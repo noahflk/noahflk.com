@@ -1,18 +1,19 @@
+/* eslint-disable */
 // Source: https://leerob.io/blog/nextjs-sitemap-robots
 
-const fs = require('fs');
-const { globby } = require('globby');
-const prettier = require('prettier');
+const fs = require("fs");
+const { globby } = require("globby");
+const prettier = require("prettier");
 
 (async () => {
-  const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
+  const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
   const pages = await globby([
-    'pages/*.js',
-    'data/**/*.mdx',
-    '!data/*.mdx',
-    '!pages/_*.js',
-    '!pages/api',
-    '!pages/404.js',
+    "pages/*.js",
+    "data/**/*.mdx",
+    "!data/*.mdx",
+    "!pages/_*.js",
+    "!pages/api",
+    "!pages/404.js",
   ]);
 
   const sitemap = `
@@ -20,27 +21,23 @@ const prettier = require('prettier');
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${pages
       .map((page) => {
-        const path = page
-          .replace('pages', '')
-          .replace('data', '')
-          .replace('.js', '')
-          .replace('.mdx', '');
-        const route = path === '/index' ? '' : path;
+        const path = page.replace("pages", "").replace("data", "").replace(".js", "").replace(".mdx", "");
+        const route = path === "/index" ? "" : path;
         return `
                         <url>
                             <loc>${`https://noahfalk.com${route}`}</loc>
                         </url>
                     `;
       })
-      .join('')}
+      .join("")}
         </urlset>
     `;
 
   const formatted = prettier.format(sitemap, {
     ...prettierConfig,
-    parser: 'html'
+    parser: "html",
   });
 
   // eslint-disable-next-line no-sync
-  fs.writeFileSync('public/sitemap.xml', formatted);
+  fs.writeFileSync("public/sitemap.xml", formatted);
 })();

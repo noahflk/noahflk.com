@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const RSS = require("rss");
 const fs = require("fs");
 const { getAllPosts } = require("../utils/posts");
