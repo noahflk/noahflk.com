@@ -50,7 +50,7 @@ const Hr = () => {
   return <Divider borderColor={borderColor} my={4} w="100%" />;
 };
 
-const chakraStyledComponents = {
+const chakraComponents = {
   h1: (props) => <Heading as="h1" size="xl" pt={3} {...props} />,
   h2: (props) => <Heading as="h2" size="lg" fontWeight="semibold" pt={2} {...props} />,
   h3: (props) => <Heading as="h3" size="md" pt={2} fontWeight="bold" {...props} />,
@@ -73,7 +73,7 @@ const chakraStyledComponents = {
 };
 
 export const MDXComponents = {
-  ...chakraStyledComponents,
+  ...chakraComponents,
   Image,
   pre: Pre,
   wrapper: ({ components, layout, ...rest }) => {
