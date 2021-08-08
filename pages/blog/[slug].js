@@ -1,29 +1,23 @@
 import { useRouter } from "next/router";
-import { MDXRemote } from "next-mdx-remote";
-import BlogLayout from "layouts/BlogPost";
 import { getFileBySlug, getFiles } from "utils/mdx";
-import MDXComponents from "components/MDXComponents";
+import { MDXLayoutRenderer } from "components/MDXComponents";
 
-const Blog = ({ post, slug }) => {
+const DEFAULT_LAYOUT = "PostLayout";
+
+export default function Blog({ post }) {
+  console.log("----------");
+  console.log(post.frontMatter);
   const { isFallback } = useRouter();
+  const { mdxSource, frontMatter } = post;
 
   if (isFallback || !post) {
     return <div>Loading...</div>;
   }
 
   return (
-    <BlogLayout frontMatter={post.frontMatter} slug={slug}>
-      <MDXRemote
-        {...post.mdxSource}
-        components={{
-          ...MDXComponents,
-        }}
-      />
-    </BlogLayout>
+    <MDXLayoutRenderer layout={frontMatter.layout || DEFAULT_LAYOUT} mdxSource={mdxSource} frontMatter={frontMatter} />
   );
-};
-
-export default Blog;
+}
 
 export const getStaticPaths = async () => {
   const posts = await getFiles();
@@ -41,6 +35,10 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   try {
     const post = await getFileBySlug(params.slug);
+
+    if (post.frontMatter.draft) {
+      throw Error("Rendering of draft not allowed");
+    }
 
     return { props: { post, slug: params.slug } };
   } catch (error) {
