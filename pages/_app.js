@@ -1,22 +1,21 @@
 import Head from "next/head";
-import { ChakraProvider, useColorMode } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Global, css } from "@emotion/react";
 import { DefaultSeo } from "next-seo";
 
-import { prismLightTheme, prismDarkTheme } from "styles/prism";
+import { codeHighlighting } from "styles/highlighting";
 import SEO_CONFIG from "seo.config.js";
 import useColors from "hooks/useColors";
 import theme from "styles/theme";
 
 const GlobalStyle = ({ children }) => {
-  const { colorMode } = useColorMode();
   const { bgColor } = useColors();
 
   return (
     <>
       <Global
         styles={css`
-          ${colorMode === "light" ? prismLightTheme : prismDarkTheme};
+          ${codeHighlighting};
 
           ::selection {
             background-color: #47a3f3;

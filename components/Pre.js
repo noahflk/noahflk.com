@@ -1,9 +1,13 @@
 import { useState, useRef } from "react";
+import { css } from "@emotion/react";
+import { useColorMode } from "@chakra-ui/react";
 
 const Pre = (props) => {
   const textInput = useRef(null);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const { colorMode } = useColorMode();
 
   const onEnter = () => {
     setHovered(true);
@@ -20,15 +24,35 @@ const Pre = (props) => {
     }, 2000);
   };
 
+  const buttonStyling = css`
+    border-color: rgb(209, 213, 219);
+  `;
+
+  const copiedButtonStyling = css`
+    border-color: rgb(52, 211, 153);
+    &:focus {
+      outline-offset: 2px;
+    }
+  `;
+
   return (
     <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className="relative">
       {hovered && (
         <button
           aria-label="Copy code"
           type="button"
-          className={`absolute right-2 top-2 w-8 h-8 p-1 rounded border-2 bg-gray-700 dark:bg-gray-800 ${
-            copied ? "focus:outline-none focus:border-green-400 border-green-400" : "border-gray-300"
-          }`}
+          css={css`
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            border-width: 2px;
+            background-color: ${colorMode === "light" ? "rgb(55, 65, 81)" : "rgb(31, 41, 55)"};
+            ${copied ? copiedButtonStyling : buttonStyling}
+          `}
           onClick={onCopy}
         >
           <svg
@@ -36,7 +60,9 @@ const Pre = (props) => {
             viewBox="0 0 24 24"
             stroke="currentColor"
             fill="none"
-            className={copied ? "text-green-400" : "text-gray-300"}
+            css={css`
+              color: ${copied ? "rgb(52, 211, 153)" : "rgb(209, 213, 219)"};
+            `}
           >
             {copied ? (
               <>
