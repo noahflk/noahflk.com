@@ -5,8 +5,7 @@ import useColors from "hooks/useColors";
 
 const CustomLink = ({ href, ...rest }) => {
   const { accentColor } = useColors();
-  const isInternalLink = href && href.startsWith("/");
-  const isAnchorLink = href && href.startsWith("#");
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
 
   if (isInternalLink) {
     return (
@@ -16,11 +15,7 @@ const CustomLink = ({ href, ...rest }) => {
     );
   }
 
-  if (isAnchorLink) {
-    return <Link color={accentColor} isExternal {...rest} />;
-  }
-
-  return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />;
+  return <Link color={accentColor} isExternal {...rest} />;
 };
 
 export default CustomLink;
