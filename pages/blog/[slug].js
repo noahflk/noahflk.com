@@ -5,8 +5,6 @@ import { MDXLayoutRenderer } from "components/MDXComponents";
 const DEFAULT_LAYOUT = "PostLayout";
 
 export default function Blog({ post }) {
-  console.log("----------");
-  console.log(post.frontMatter);
   const { isFallback } = useRouter();
   const { mdxSource, frontMatter } = post;
 

@@ -1,6 +1,6 @@
 ---
 title: "How to use the new Next.js Image Component in your MDX Blog"
-publishedAt: "2020-11-16"
+date: "2020-11-16"
 summary: "This is everything I did to add Image Optimization to my Next.js blog. It makes it possible to add new images with zero additional effort while still enjoying the benefits of this new Next.js feature."
 ---
 
@@ -22,7 +22,12 @@ import Image from 'next/image'
 
 `next/image` requires the developer to specify a width and height for the image to avoid Cumulative Layout Shift. When you don't specify with and height attributes on an image the browser won't know how much space the image will take up until the image has loaded. This causes the content below the image to change position because space is needed to display the loaded image.
 
-<Image src="/static/images/CLS.png" width={1600} height={1200} alt="A visual example that shows how cumulative layout shift works" />
+<Image
+  src="/static/images/CLS.png"
+  width={1600}
+  height={1200}
+  alt="A visual example that shows how cumulative layout shift works"
+/>
 _[Source](https://web.dev/cls/)_
 
 ## Status quo

@@ -15,13 +15,13 @@ const { WEBSITE_URL, AUTHOR } = require("../utils/configuration");
   });
 
   posts.map((frontMatter) => {
-    const { title, summary, publishedAt, slug } = frontMatter;
+    const { title, summary, date, slug } = frontMatter;
 
     feed.item({
       title,
       guid: slug,
       url: `${WEBSITE_URL}/blog/${slug}`,
-      date: publishedAt,
+      date,
       description: summary,
       author: AUTHOR,
     });

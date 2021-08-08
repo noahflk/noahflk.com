@@ -15,7 +15,7 @@ const generateOgImage = (title) => {
   };
 };
 
-const BlogSeo = ({ title, summary, publishedAt, url, image }) => {
+const BlogSeo = ({ title, summary, date: publishedAt, url, image }) => {
   const date = new Date(publishedAt).toISOString();
   const route = /\/blog\/(.*)\/index/.test(url) || url === "/index" ? url.slice(0, -"/index".length) : url;
 
