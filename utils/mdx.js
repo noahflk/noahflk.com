@@ -132,6 +132,7 @@ export async function getAllFilesFrontMatter() {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
+        readingTime: readingTime(source),
         date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
       });
     }
