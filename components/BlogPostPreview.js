@@ -6,7 +6,7 @@ import { getHumanizedDate } from "utils/date";
 import useColors from "hooks/useColors";
 
 const BlogPostPreview = (frontMatter) => {
-  const { title, summary, publishedAt, readingTime, slug } = frontMatter;
+  const { title, summary, date, readingTime, slug } = frontMatter;
   const { secondaryTextColor, tertiaryTextColor } = useColors();
 
   return (
@@ -18,7 +18,7 @@ const BlogPostPreview = (frontMatter) => {
               {title}
             </Heading>
             <Text color={tertiaryTextColor}>
-              {getHumanizedDate(publishedAt)} • {readingTime.text}
+              {getHumanizedDate(date)} • {readingTime.text}
             </Text>
             <Text color={secondaryTextColor}>{summary}</Text>
           </Stack>
