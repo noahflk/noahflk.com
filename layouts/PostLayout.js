@@ -1,4 +1,4 @@
-import { Heading, Text, Flex, Stack, Box } from "@chakra-ui/react";
+import { Heading, Text, Flex, Stack } from "@chakra-ui/react";
 
 import Layout from "components/Layout";
 import BlogSeo from "components/BlogSeo";
@@ -6,8 +6,10 @@ import { getHumanizedDate } from "utils/date";
 import { WEBSITE_URL } from "utils/configuration";
 import useColors from "hooks/useColors";
 
-export default function BlogLayout({ frontMatter, slug, children }) {
+// TODO: include slug in front matter
+export default function PostLayout({ frontMatter, children }) {
   const { secondaryTextColor } = useColors();
+  const { slug, readingTime, date, title } = frontMatter;
 
   return (
     <Layout>
@@ -23,7 +25,7 @@ export default function BlogLayout({ frontMatter, slug, children }) {
       >
         <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" width="100%">
           <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
-            {frontMatter.title}
+            {title}
           </Heading>
           <Flex
             justify="space-between"
@@ -35,10 +37,10 @@ export default function BlogLayout({ frontMatter, slug, children }) {
             color={secondaryTextColor}
           >
             <Flex align="center">
-              <Text fontSize="md">Published on {getHumanizedDate(frontMatter.publishedAt)}</Text>
+              <Text fontSize="md">Published on {getHumanizedDate(date)}</Text>
             </Flex>
             <Text fontSize="md" mt={[2, 0]}>
-              {frontMatter.readingTime.text}
+              {readingTime.text}
             </Text>
           </Flex>
         </Flex>
