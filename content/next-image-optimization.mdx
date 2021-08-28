@@ -22,12 +22,8 @@ import Image from 'next/image'
 
 `next/image` requires the developer to specify a width and height for the image to avoid Cumulative Layout Shift. When you don't specify with and height attributes on an image the browser won't know how much space the image will take up until the image has loaded. This causes the content below the image to change position because space is needed to display the loaded image.
 
-<Image
-  src="/static/images/CLS.png"
-  width={1600}
-  height={1200}
-  alt="A visual example that shows how cumulative layout shift works"
-/>
+![A visual example that shows how cumulative layout shift works](/static/images/CLS.png)
+
 _[Source](https://web.dev/cls/)_
 
 ## Status quo

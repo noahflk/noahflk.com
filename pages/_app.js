@@ -24,7 +24,6 @@ const GlobalStyle = ({ children }) => {
 
           html {
             min-width: 360px;
-            scroll-behavior: smooth;
           }
 
           @media (prefers-reduced-motion: reduce) {
