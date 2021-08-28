@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getFileBySlug, getFiles } from "utils/mdx";
+import { getFileBySlug, getFiles, formatSlug } from "utils/mdx";
 import { MDXLayoutRenderer } from "components/MDXComponents";
 
 const DEFAULT_LAYOUT = "PostLayout";
@@ -23,10 +23,10 @@ export const getStaticPaths = async () => {
   return {
     paths: posts.map((p) => ({
       params: {
-        slug: p.replace(/\.mdx/, ""),
+        slug: formatSlug(p).split("/"),
       },
     })),
-    fallback: true,
+    fallback: false,
   };
 };
 
