@@ -16,7 +16,7 @@
     "framer-motion": "^4",
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.0",
-    "mdx-bundler": "^5.2.1",
+    "mdx-bundler": "^6.0.1",
     "next": "^11.0.1",
     "next-seo": "^4.7.3",
     "preact": "^10.5.14",
