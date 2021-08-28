@@ -18,12 +18,7 @@ But even without considering JavaScript, there are a few things you can do which
 
 The [WCAG 2](https://www.w3.org/TR/WCAG20/) spec defines color contrast as the perceived brightness between two colors. This is expressed as a ratio ranging from 1:1 (white text on white background) to 21:1 (black text on white background).
 
-<Image
-  src="/static/images/color-contrast.png"
-  width={800}
-  height={144}
-  alt="Illustration of different contrast ratios"
-/>
+![Illustration of different contrast ratios](/static/images/color-contrast.png)
 
 _Illustration by [Accessible Web](https://accessibleweb.com/tips-tools-tutorials/designing-accessibility-mind/)._
 
@@ -88,12 +83,7 @@ Semantic HTML elements are elements that convey their meaning to both the develo
 
 Instead of relying on divs for your application layout, use the appropriate semantic elements HTML provides you. This helps screen readers and other tools identify the relevant content.
 
-<Image
-  src="/static/images/semantic-elements.png"
-  width={791}
-  height={556}
-  alt="Comparison between semantic elements like header, article, figure, and footer versus divs everywhere for a page layout"
-/>
+![Comparison between semantic elements like header, article, figure, and footer versus divs everywhere for a page layout](/static/images/semantic-elements.png)
 
 When developing React applications you have the option to build almost anything using only divs and spans. And while `button` or `select` elements aren't officially considered to be semantic HTML elements, they still convey a clearer meaning compared to a div. So instead of making a div an interactive, clickable element, use the proper HTML element, when available. This will save you from having to use lots of ARIA attributes, which we'll get to later.
 
@@ -142,7 +132,7 @@ In the next chapter, we're going to examine how you can use ARIA to make React c
 
 Take a normal progress bar like this one. Now, imagine, how would anyone who relies on a screen reader be able to understand its content? All the information is hidden within the styling, which is useless for a screen reader. The markup could be as little as one empty div.
 
-<Image src="/static/images/progress-bar.png" width={720} height={60} alt="Progress bar without any labelling" />
+![Progress bar without any labelling](/static/images/progress-bar.png)
 
 Thanks to ARIA, we can utilize a few attributes to make this component fully accessible.
 

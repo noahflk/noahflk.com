@@ -15,7 +15,7 @@ const CustomLink = ({ href, ...rest }) => {
     );
   }
 
-  return <Link color={accentColor} isExternal {...rest} />;
+  return <Link color={accentColor} isExternal href={href} {...rest} />;
 };
 
 export default CustomLink;
