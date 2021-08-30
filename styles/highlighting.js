@@ -6,7 +6,6 @@ export const codeHighlighting = css`
     padding-right: 1.25rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 700;
@@ -14,6 +13,7 @@ export const codeHighlighting = css`
     background-color: rgb(55, 65, 81);
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
   .remark-code-title + div > pre {
@@ -27,7 +27,7 @@ export const codeHighlighting = css`
   }
 
   .code-line {
-    padding: 1rem;
+    padding-left: 1rem;
     margin-left: -1rem;
     margin-right: -1rem;
     border-left-width: 4px;
@@ -37,7 +37,6 @@ export const codeHighlighting = css`
   .highlight-line {
     margin-left: -1rem;
     margin-right: -1rem;
-    border-color: rgba(55, 65, 81, var(--tw-border-opacity));
     background-color: rgba(55, 65, 81, 0.5);
     border-left-width: 4px;
     border-color: rgb(107, 114, 128);
@@ -48,5 +47,34 @@ export const codeHighlighting = css`
     margin-left: -0.5rem;
     color: rgb(156, 163, 175);
     content: attr(line);
+  }
+
+  .text-code-red {
+    color: rgb(255, 131, 131);
+  }
+
+  .text-code-yellow {
+    color: rgb(255, 228, 132);
+  }
+
+  .text-code-green {
+    color: rgb(181, 244, 165);
+  }
+
+  .text-code-white {
+    color: rgb(255, 255, 255);
+  }
+
+  .text-code-purple {
+    color: rgb(217, 169, 255);
+  }
+
+  .text-code-blue {
+    color: rgb(147, 221, 253);
+  }
+
+  .text-code-gray {
+    color: rgb(163, 163, 163);
+    font-style: italic;
   }
 `;

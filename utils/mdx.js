@@ -1,18 +1,25 @@
-/* eslint-disable */
-// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog
-
 import { bundleMDX } from "mdx-bundler";
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 import readingTime from "reading-time";
-import visit from "unist-util-visit";
-import codeTitles from "utils/remark-code-title";
-import imgToJsx from "utils/img-to-jsx";
+import { visit } from "unist-util-visit";
 import getAllFilesRecursively from "utils/files";
 
+import remarkGfm from "remark-gfm";
+import remarkFootnotes from "remark-footnotes";
+import remarkMath from "remark-math";
+import remarkCodeTitles from "./remark-code-title";
+import remarkTocHeadings from "./remark-toc-headings";
+import remarkImgToJsx from "./remark-img-to-jsx";
+
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeKatex from "rehype-katex";
+import rehypePrismPlus from "rehype-prism-plus";
+
 const root = process.cwd();
-const DATA_FOLDER = "content";
+const POST_DIR = "content";
 
 const tokenClassNames = {
   tag: "text-code-red",
@@ -25,11 +32,12 @@ const tokenClassNames = {
   string: "text-code-green",
   function: "text-code-blue",
   boolean: "text-code-red",
-  comment: "text-gray-400 italic",
+  comment: "text-code-gray",
 };
 
 export function getFiles() {
-  const prefixPaths = path.join(root, DATA_FOLDER);
+  // TODO
+  const prefixPaths = path.join(root, "content");
   const files = getAllFilesRecursively(prefixPaths);
   // Only want to return blog/path and ignore root, replace is needed to work on Windows
   return files.map((file) => file.slice(prefixPaths.length + 1).replace(/\\/g, "/"));
@@ -46,8 +54,8 @@ export function dateSortDesc(a, b) {
 }
 
 export async function getFileBySlug(slug) {
-  const mdxPath = path.join(root, DATA_FOLDER, `${slug}.mdx`);
-  const mdPath = path.join(root, DATA_FOLDER, `${slug}.md`);
+  const mdxPath = path.join(root, "content", `${slug}.mdx`);
+  const mdPath = path.join(root, "content", `${slug}.md`);
   const source = fs.existsSync(mdxPath) ? fs.readFileSync(mdxPath, "utf8") : fs.readFileSync(mdPath, "utf8");
 
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
@@ -56,6 +64,8 @@ export async function getFileBySlug(slug) {
   } else {
     process.env.ESBUILD_BINARY_PATH = path.join(process.cwd(), "node_modules", "esbuild", "bin", "esbuild");
   }
+
+  let toc = [];
 
   const { frontmatter, code } = await bundleMDX(source, {
     // mdx imports can be automatically source from the components directory
@@ -66,18 +76,19 @@ export async function getFileBySlug(slug) {
       // plugins in the future.
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
-        require("remark-slug"),
-        require("remark-autolink-headings"),
-        require("remark-gfm"),
-        codeTitles,
-        [require("remark-footnotes"), { inlineNotes: true }],
-        require("remark-math"),
-        imgToJsx,
+        [remarkTocHeadings, { exportRef: toc }],
+        remarkGfm,
+        remarkCodeTitles,
+        [remarkFootnotes, { inlineNotes: true }],
+        remarkMath,
+        remarkImgToJsx,
       ];
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
-        require("rehype-katex"),
-        [require("rehype-prism-plus"), { ignoreMissing: true }],
+        rehypeSlug,
+        rehypeAutolinkHeadings,
+        rehypeKatex,
+        [rehypePrismPlus, { ignoreMissing: true }],
         () => {
           return (tree) => {
             visit(tree, "element", (node, index, parent) => {
@@ -102,6 +113,7 @@ export async function getFileBySlug(slug) {
 
   return {
     mdxSource: code,
+    toc,
     frontMatter: {
       readingTime: readingTime(code),
       slug: slug || null,
@@ -113,7 +125,7 @@ export async function getFileBySlug(slug) {
 }
 
 export async function getAllFilesFrontMatter() {
-  const prefixPaths = path.join(root, DATA_FOLDER);
+  const prefixPaths = path.join(root, POST_DIR);
 
   const files = getAllFilesRecursively(prefixPaths);
 

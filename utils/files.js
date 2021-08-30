@@ -1,5 +1,3 @@
-// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog
-
 import fs from "fs";
 import path from "path";
 
