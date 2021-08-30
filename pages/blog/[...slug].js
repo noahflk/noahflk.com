@@ -17,8 +17,8 @@ export default function Blog({ post }) {
   );
 }
 
-export const getStaticPaths = async () => {
-  const posts = await getFiles();
+export async function getStaticPaths() {
+  const posts = getFiles();
 
   return {
     paths: posts.map((p) => ({
@@ -28,9 +28,9 @@ export const getStaticPaths = async () => {
     })),
     fallback: false,
   };
-};
+}
 
-export const getStaticProps = async ({ params }) => {
+export async function getStaticProps({ params }) {
   try {
     const post = await getFileBySlug(params.slug);
 
@@ -44,4 +44,4 @@ export const getStaticProps = async ({ params }) => {
     console.log(error);
     return { notFound: true };
   }
-};
+}

@@ -1,9 +1,6 @@
-/* eslint-disable */
-// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog
+import { visit } from "unist-util-visit";
 
-import visit from "unist-util-visit";
-
-module.exports = function (options) {
+export default function remarkCodeTitles() {
   return (tree) =>
     visit(tree, "code", (node, index) => {
       const nodeLang = node.lang || "";
@@ -32,4 +29,4 @@ module.exports = function (options) {
       tree.children.splice(index, 0, titleNode);
       node.lang = language;
     });
-};
+}

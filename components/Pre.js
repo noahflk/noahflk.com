@@ -27,7 +27,7 @@ const Pre = ({ children }) => {
   };
 
   return (
-    <Box ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} position="relative">
+    <Box ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} position="relative" w="full">
       {hovered && (
         <IconButton
           onClick={onCopy}
@@ -40,12 +40,24 @@ const Pre = ({ children }) => {
           padding={1}
           rounded="md"
           border="2px"
-          borderColor={copied ? "green-400" : "gray-300"}
-          bg={colorMode === "light" ? "gray-700" : "gray-800"}
-          icon={copied ? <CopiedIcon color="green-400" /> : <CopyIcon color="gray-300" />}
+          borderColor={copied ? "green.400" : "gray.300"}
+          bg={colorMode === "light" ? "gray.700" : "gray.800"}
+          icon={copied ? <CopiedIcon color="green.400" /> : <CopyIcon color="gray.300" />}
         />
       )}
-      <pre>{children}</pre>
+      <Box
+        as="pre"
+        bg="#1f2937"
+        overflowX="auto"
+        fontSize="sm"
+        lineHeight={6}
+        borderRadius="md"
+        w="full"
+        padding="4"
+        color="white"
+      >
+        {children}
+      </Box>
     </Box>
   );
 };
