@@ -9,7 +9,6 @@ module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "md", "mdx"],
   webpack: (config, { dev, isServer }) => {
     if (isServer) {
-      // require("./scripts/generate-sitemap");
       // require("./scripts/generate-rss-feed");
     }
 
