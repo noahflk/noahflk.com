@@ -1,11 +1,10 @@
 {
   "name": "noahfalk.com",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node ./scripts/generate-sitemap.mjs",
+    "postbuild": "node ./scripts/generate-sitemap.mjs && node ./scripts/generate-rss-feed.mjs",
     "start": "next start",
     "lint": "next lint"
   },
