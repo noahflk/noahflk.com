@@ -5,6 +5,7 @@ export const codeHighlighting = css`
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     padding-top: 0.75rem;
+    width: 100%;
     padding-bottom: 0.75rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -17,7 +18,7 @@ export const codeHighlighting = css`
   }
 
   .remark-code-title + div > pre {
-    margin-top: 0px;
+    margin-top: -16px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
   }
