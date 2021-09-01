@@ -4,9 +4,11 @@ import { Box, Code, Heading, Kbd, Text, Divider } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
+
 import CustomLink from "components/CustomLink";
 import Pre from "components/Pre";
 import useColors from "hooks/useColors";
+import PostLayout from "layouts/PostLayout";
 
 const TableHead = (props) => {
   const { secondaryBgColor, accentColor } = useColors();
@@ -76,10 +78,7 @@ export const MDXComponents = {
   ...chakraComponents,
   Image,
   pre: Pre,
-  wrapper: ({ components, layout, ...rest }) => {
-    const Layout = require(`../layouts/${layout}`).default;
-    return <Layout {...rest} />;
-  },
+  wrapper: PostLayout,
 };
 
 export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
