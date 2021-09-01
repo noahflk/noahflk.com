@@ -1,3 +1,5 @@
+// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/master/lib/remark-img-to-jsx.js
+
 import { visit } from "unist-util-visit";
 import sizeOf from "image-size";
 import fs from "fs";

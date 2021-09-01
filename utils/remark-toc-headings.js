@@ -1,3 +1,5 @@
+// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/master/lib/remark-toc-headings.js
+
 import { visit } from "unist-util-visit";
 import { slug } from "github-slugger";
 
