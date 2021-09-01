@@ -10,7 +10,7 @@ const BlogPostPreview = (frontMatter) => {
   const { secondaryTextColor, tertiaryTextColor } = useColors();
 
   return (
-    <NextLink href={`blog/${slug}`} passHref>
+    <NextLink href={`/blog/${slug}`} passHref>
       <Link w="100%" _hover={{ textDecoration: "none" }}>
         <Box mb={8} display="block" width="100%">
           <Stack spacing={2}>
