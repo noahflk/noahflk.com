@@ -1,3 +1,5 @@
+// Source: https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/master/lib/remark-code-title.js
+
 import { visit } from "unist-util-visit";
 
 export default function remarkCodeTitles() {
