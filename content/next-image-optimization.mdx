@@ -4,6 +4,33 @@ date: "2020-11-16"
 summary: "This is everything I did to add Image Optimization to my Next.js blog. It makes it possible to add new images with zero additional effort while still enjoying the benefits of this new Next.js feature."
 ---
 
+### Update Summer 2021
+
+Vercel has now released [released](https://nextjs.org/blog/next-11#automatic-size-detection-local-images) Next.js 11 which once again brings improvements to image optimization. So manually specifying the image size is no longer necessary, as long as the image is directly imported:
+
+```javascript
+import Image from "next/image";
+import picture from "/profile-picture.jpg";
+
+export default function Home() {
+  return <Image src={picture} alt="Profile Picture" />;
+}
+```
+
+So, as long as your MDX engine supports importing React components in MDX files, all you need to do to benefit from image optimization is this:
+
+```javascript:blog/blog-post.mdx
+import Image from "next/image";
+import picture from "/profile-picture.jpg";
+
+# Title
+Some Markdown
+
+<Image src={picture} alt="Profile Picture" />
+```
+
+## Introduction
+
 In October Vercel [released](https://nextjs.org/blog/next-10) Next.js 10 which includes a component for automatic image optimization. This component decreases loading times by using a couple of smart techniques, like dynamically serving the image in the size it gets rendered at or lazy-loading images.
 
 Vercel advertises the next/image component as a drop-in replacement for the HTML `<img>` element.
