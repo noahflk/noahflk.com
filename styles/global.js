@@ -1,10 +1,12 @@
 import { Global, css } from "@emotion/react";
+import { useColorMode } from "@chakra-ui/react";
 
 import useColors from "hooks/useColors";
 import { codeHighlighting } from "styles/highlighting";
 
 export default function GlobalStyle({ children }) {
-  const { bgColor } = useColors();
+  const { colorMode } = useColorMode();
+  const { bgColor, accentColor } = useColors();
 
   return (
     <>
@@ -33,6 +35,15 @@ export default function GlobalStyle({ children }) {
             flex-direction: column;
             min-height: 100vh;
             background: ${bgColor};
+          }
+
+          p code {
+            color: ${accentColor};
+            font-weight: 600;
+            font-size: 0.875em;
+            background-color: ${colorMode == "dark" ? "#262626" : "#f5f5f5"};
+            padding: 2px 4px;
+            border-radius: 0.25rem;
           }
 
           @font-face {
