@@ -1,4 +1,6 @@
-import NextLink from "next/link";
+/* eslint-disable @next/next/no-img-element */
+
+import Link from "next/link";
 import { useColorMode, Heading, Box, Flex, Stack, Button } from "@chakra-ui/react";
 
 import Layout from "components/Layout";
@@ -20,11 +22,11 @@ const Error = () => {
           <Heading letterSpacing="tight" as="h2" size="xl">
             Oops, page not found...
           </Heading>
-          <NextLink href="/" passHref>
+          <Link href="/" passHref>
             <Button as="a" p={[1, 4]} w="250px" fontWeight="bold">
               Take me back home
             </Button>
-          </NextLink>
+          </Link>
         </Stack>
       </Flex>
     </Layout>
