@@ -7,7 +7,7 @@ import ProjectCard from "components/ProjectCard";
 import useColors from "hooks/useColors";
 import { getAllFilesFrontMatter } from "utils/mdx";
 
-const Index = ({ posts }) => {
+export default function Index({ posts }) {
   const { secondaryTextColor } = useColors();
 
   return (
@@ -65,7 +65,7 @@ const Index = ({ posts }) => {
       </Stack>
     </Layout>
   );
-};
+}
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter();
@@ -74,5 +74,3 @@ export async function getStaticProps() {
     props: { posts: posts.slice(0, 3) },
   };
 }
-
-export default Index;

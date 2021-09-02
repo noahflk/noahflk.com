@@ -17,3 +17,7 @@ yarn dev
 - [Vercel](https://vercel.com)
 - [MDX](https://github.com/mdx-js/mdx)
 - [Chakra UI](https://chakra-ui.com/)
+
+## Acknowledgements
+
+The code that integrats with `mdx-bundler` is primarily sourced from this Next.js MDX Blog template: https://github.com/timlrx/tailwind-nextjs-starter-blog

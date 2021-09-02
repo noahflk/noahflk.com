@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
+
 import { getFileBySlug, getFiles, formatSlug } from "utils/mdx";
 import { MDXLayoutRenderer } from "components/MDXComponents";
-
-const DEFAULT_LAYOUT = "PostLayout";
 
 export default function Blog({ post }) {
   const { isFallback } = useRouter();
@@ -12,9 +11,7 @@ export default function Blog({ post }) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <MDXLayoutRenderer layout={frontMatter.layout || DEFAULT_LAYOUT} mdxSource={mdxSource} frontMatter={frontMatter} />
-  );
+  return <MDXLayoutRenderer mdxSource={mdxSource} frontMatter={frontMatter} />;
 }
 
 export async function getStaticPaths() {
@@ -40,8 +37,6 @@ export async function getStaticProps({ params }) {
 
     return { props: { post, slug: params.slug } };
   } catch (error) {
-    // eslint-disable-next-line
-    console.log(error);
     return { notFound: true };
   }
 }

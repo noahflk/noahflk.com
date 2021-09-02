@@ -10,55 +10,61 @@ const url = `${WEBSITE_URL}/blog`;
 const title = `Blog – ${AUTHOR}`;
 const description = "My blog posts.";
 
-const Blog = ({ posts }) => (
-  <>
-    <NextSeo
-      title={title}
-      description={description}
-      canonical={url}
-      openGraph={{
-        url,
-        title,
-        description,
-      }}
-    />
-    <Layout>
-      <Stack
-        as="main"
-        spacing={2}
-        justifyContent="center"
-        alignItems="flex-start"
-        m="0 auto 4rem auto"
-        width="100%"
-        maxWidth="800px"
-      >
-        <Flex flexDirection="column" justifyContent="flex-start" alignItems="flex-start" maxWidth="700px" width="100%">
-          <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
-            Blog
-          </Heading>
-        </Flex>
-        <Flex
-          flexDirection="column"
-          justifyContent="flex-start"
+export default function Blog({ posts }) {
+  return (
+    <>
+      <NextSeo
+        title={title}
+        description={description}
+        canonical={url}
+        openGraph={{
+          url,
+          title,
+          description,
+        }}
+      />
+      <Layout>
+        <Stack
+          as="main"
+          spacing={2}
+          justifyContent="center"
           alignItems="flex-start"
-          maxWidth="700px"
+          m="0 auto 4rem auto"
           width="100%"
-          mt={8}
+          maxWidth="800px"
         >
-          {!posts.length && "No posts found."}
-          {posts.map((frontMatter) => {
-            return <BlogPostPreview key={frontMatter.title} {...frontMatter} />;
-          })}
-        </Flex>
-      </Stack>
-    </Layout>
-  </>
-);
+          <Flex
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            maxWidth="700px"
+            width="100%"
+          >
+            <Heading letterSpacing="tight" mb={4} as="h1" size="2xl">
+              Blog
+            </Heading>
+          </Flex>
+          <Flex
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            maxWidth="700px"
+            width="100%"
+            mt={8}
+          >
+            {!posts.length && "No posts found."}
+            {posts.map((frontMatter) => {
+              return <BlogPostPreview key={frontMatter.title} {...frontMatter} />;
+            })}
+          </Flex>
+        </Stack>
+      </Layout>
+    </>
+  );
+}
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter();
 
   return { props: { posts } };
 }
-
-export default Blog;

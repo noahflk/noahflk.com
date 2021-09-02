@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import { Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+
 import useColors from "hooks/useColors";
 
 const CustomLink = ({ href, ...rest }) => {

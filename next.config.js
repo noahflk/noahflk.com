@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -8,10 +6,6 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx"],
   webpack: (config, { dev, isServer }) => {
-    if (isServer) {
-      // require("./scripts/generate-rss-feed");
-    }
-
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp4)$/i,
       use: [

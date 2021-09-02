@@ -2,6 +2,7 @@ import { readFileSync, readdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import RSS from "rss";
 import matter from "gray-matter";
+
 import { WEBSITE_URL, AUTHOR } from "../utils/configuration.js";
 
 async function generate() {

@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react/display-name */
 
 import { Box, Code, Heading, Kbd, Text, Divider } from "@chakra-ui/react";
 import { useMemo } from "react";
@@ -81,8 +81,8 @@ export const MDXComponents = {
   wrapper: PostLayout,
 };
 
-export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }) => {
+export const MDXLayoutRenderer = ({ mdxSource, ...rest }) => {
   const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource]);
 
-  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />;
+  return <MDXLayout components={MDXComponents} {...rest} />;
 };

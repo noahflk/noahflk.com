@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, IconButton, Text, Stack, Flex, Box, Center } from "@chakra-ui/react";
-import { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB } from "utils/configuration";
 
+import { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB } from "utils/configuration";
 import { TwitterIcon, GitHubIcon, MailIcon, RssIcon } from "components/Icons";
 import useColors from "hooks/useColors";
 
