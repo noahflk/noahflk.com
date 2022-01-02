@@ -27,7 +27,7 @@ const Header = () => {
       >
         <NextLink href="/" passHref>
           <Text as="a" fontSize="2xl" display={["none", "block"]}>
-            Noah Falk
+            @noahflk
           </Text>
         </NextLink>
         <NextLink href="/" passHref>

@@ -17,6 +17,7 @@ class NextDocument extends Document {
           <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
           <link rel="manifest" href="/static/favicons/site.webmanifest" />
           <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#1d3557" />
+          <script defer data-domain="noahflk.com" src="https://plausible.io/js/plausible.js"></script>
         </Head>
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
