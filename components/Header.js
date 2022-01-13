@@ -14,7 +14,7 @@ const Header = () => {
     <Box as="header" borderTopWidth="5px" borderColor={accentColor} px={[5, 8]}>
       <Flex
         flexDirection="row"
-        justifyContent="space-between"
+        justifyContent="flex-end"
         alignItems="center"
         maxWidth="800px"
         width="100%"
@@ -25,16 +25,6 @@ const Header = () => {
         mt={[0, 4]}
         mb={[2, 8]}
       >
-        <NextLink href="/" passHref>
-          <Text as="a" fontSize="2xl" display={["none", "block"]}>
-            @noahflk
-          </Text>
-        </NextLink>
-        <NextLink href="/" passHref>
-          <Text as="a" fontSize="2xl" display={["block", "none"]}>
-            N.F.
-          </Text>
-        </NextLink>
         <Box>
           <NextLink href="/" passHref>
             <Button

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, IconButton, Text, Stack, Flex, Box, Center } from "@chakra-ui/react";
 
-import { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB } from "utils/configuration";
+import { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB, EMAIL } from "utils/configuration";
 import { TwitterIcon, GitHubIcon, MailIcon, RssIcon } from "components/Icons";
 import useColors from "hooks/useColors";
 
@@ -45,7 +45,7 @@ const Footer = () => {
               />
             </Center>
           </Link>
-          <Link href="mailto:nfleischm@gmail.com" title="Email" isExternal>
+          <Link href={`mailto:${EMAIL}`} title="Email" isExternal>
             <Center w="100%" h="100%">
               <IconButton aria-label="Email" icon={<MailIcon />} size="lg" variant="link" color={tertiaryTextColor} />
             </Center>
@@ -56,7 +56,7 @@ const Footer = () => {
             </Center>
           </Link>
         </Stack>
-        <Text>© @noahflk {new Date().getFullYear()}</Text>
+        <Text>@noahflk 2022</Text>
       </Flex>
     </Box>
   );

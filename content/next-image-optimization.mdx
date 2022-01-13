@@ -55,7 +55,7 @@ _[Source](https://web.dev/cls/)_
 
 ## Status quo
 
-The articles on my [blog](https://github.com/noahflk/noahfalk.com) are written in MDX and Next.js Static Site Generation (SSG) renders them at build time. Webpack's [file-loader](https://github.com/webpack-contrib/file-loader) makes it possible to have images in the directory of that specific article and import them like any regular file. They then get moved into the public Next.js folder at build-time and the public URL gets returned with the import statement.
+The articles on my [blog](https://github.com/noahflk/noahflk.com) are written in MDX and Next.js Static Site Generation (SSG) renders them at build time. Webpack's [file-loader](https://github.com/webpack-contrib/file-loader) makes it possible to have images in the directory of that specific article and import them like any regular file. They then get moved into the public Next.js folder at build-time and the public URL gets returned with the import statement.
 
 ```javascript
 // Import image like any source code file

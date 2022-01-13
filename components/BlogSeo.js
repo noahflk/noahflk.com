@@ -4,9 +4,9 @@ import { NextSeo, ArticleJsonLd } from "next-seo";
 import { AUTHOR } from "utils/configuration";
 
 const generateOgImage = (title) => {
-  const urlText = encodeURI(`http://banner.noahfalk.com/${title}.png?`);
+  const urlText = encodeURI(`http://banner.noahflk.com/${title}.png?`);
   const params = encodeURIComponent(
-    "theme=dark&md=1&subtitle=noahfalk.com&image=https://noahfalk.com/static/images/colorful-logo.png&color=#23f6416c",
+    "theme=dark&md=1&subtitle=noahflk.com&image=https://noahflk.com/static/images/colorful-logo.png&color=#23f6416c",
   );
 
   return {

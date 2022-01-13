@@ -1,6 +1,6 @@
-## noahfalk.com
+## noahflk.com
 
-This is the repository for my personal website and blog https://noahfalk.com built on top of Next.js and MDX.
+This is the repository for my personal website and blog https://noahflk.com built on top of Next.js and MDX.
 
 ## Running Locally
 
