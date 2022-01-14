@@ -19,7 +19,7 @@ const Footer = () => {
         as="footer"
         mx="auto"
         mt={[4, 8]}
-        mb={[2, 8]}
+        mb={[6, 8]}
         color={tertiaryTextColor}
       >
         <Stack isInline spacing={2} mb={[2, 0]}>

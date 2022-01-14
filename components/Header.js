@@ -23,7 +23,7 @@ const Header = () => {
         py={8}
         m="auto"
         mt={[0, 4]}
-        mb={[2, 8]}
+        mb={8}
       >
         <Box>
           <NextLink href="/" passHref>
