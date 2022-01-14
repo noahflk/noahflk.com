@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useColorMode, Button, Flex, Box, IconButton, Text } from "@chakra-ui/react";
+import { useColorMode, Button, Flex, Box, IconButton } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 import useColors from "hooks/useColors";
