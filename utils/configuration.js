@@ -1,5 +1,7 @@
-export const WEBSITE_URL = "https://noahflk.com";
-export const HANDLE_TWITTER = "noahflk";
-export const HANDLE_GITHUB = "noahflk";
-export const AUTHOR = "Noah";
-export const EMAIL = "hi@noahflk.com";
+const WEBSITE_URL = "https://noahflk.com";
+const HANDLE_TWITTER = "noahflk";
+const HANDLE_GITHUB = "noahflk";
+const AUTHOR = "Noah";
+const EMAIL = "hi@noahflk.com";
+
+module.exports = { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB, AUTHOR, EMAIL };
