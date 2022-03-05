@@ -28,7 +28,7 @@ export default function Index({ posts }) {
             </span>
           </Heading>
           <Heading color={secondaryTextColor} as="h2" size="sm">
-            I'm a full-stack web developer and maker based in Switzerland{" "}
+            I'm a freelance full-stack web developer and maker based in Switzerland{" "}
             <span role="img" aria-label="Swiss flag">
               🇨🇭
             </span>
@@ -49,9 +49,9 @@ export default function Index({ posts }) {
           </Heading>
           <SimpleGrid minChildWidth="250px" spacing="30px" alignContent="center">
             <ProjectCard
-              title="Audiocasts"
-              description="🎧 Platform to host RSS podcast feeds for your audiobooks"
-              link="https://github.com/noahflk/audiocasts"
+              title="Pingparrot"
+              description="🦜 Platform to Track user activity in your software without any embeds"
+              link="https://pingparrot.io"
               background="linear-gradient(108deg, #4158D0 0%, #C850C0 65%)"
             />
             <ProjectCard
