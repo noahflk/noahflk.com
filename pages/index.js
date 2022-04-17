@@ -55,6 +55,12 @@ export default function Index({ posts }) {
               background="linear-gradient(108deg, #4158D0 0%, #C850C0 65%)"
             />
             <ProjectCard
+              title="Railtrack"
+              description="🛤 Next.js and Supabase app to track your train journeys in and around Switzerland "
+              link="https://github.com/noahflk/railtrack"
+              background="linear-gradient(-27deg, #00d4ff 0%, #090979 65%)"
+            />
+            <ProjectCard
               title="React Relaxed"
               description="🐢 React Hooks for debouncing and throttling inputs"
               link="https://github.com/noahflk/react-relaxed"

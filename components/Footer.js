@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, IconButton, Text, Stack, Flex, Box, Center } from "@chakra-ui/react";
+import { Link, IconButton, Stack, Flex, Box, Center } from "@chakra-ui/react";
 
 import { WEBSITE_URL, HANDLE_TWITTER, HANDLE_GITHUB, EMAIL } from "utils/configuration";
 import { TwitterIcon, GitHubIcon, MailIcon, RssIcon } from "components/Icons";
@@ -12,8 +12,7 @@ const Footer = () => {
     <Box px={[5, 8]} bg={bgColor}>
       <Flex
         flexDirection={["column", "row"]}
-        justifyContent="space-between"
-        alignItems="center"
+        justifyContent="center"
         width="100%"
         maxWidth="800px"
         as="footer"
@@ -56,7 +55,6 @@ const Footer = () => {
             </Center>
           </Link>
         </Stack>
-        <Text>@noahflk 2022</Text>
       </Flex>
     </Box>
   );
