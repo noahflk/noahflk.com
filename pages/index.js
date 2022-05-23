@@ -66,6 +66,12 @@ export default function Index({ posts }) {
               link="https://github.com/noahflk/react-relaxed"
               background="linear-gradient(200deg, #fdcc10 0%, #ed17ad 100%)"
             />
+            <ProjectCard
+              title="React Breakout"
+              description="👮‍♂️ Lightweight hook for responsive breakpoints in React components "
+              link="https://github.com/noahflk/react-breakout"
+              background="linear-gradient(243deg, rgba(255,204,4,1) 0%, rgba(0,148,11,1) 100%)"
+            />
           </SimpleGrid>
         </Box>
       </Stack>
