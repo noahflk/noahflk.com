@@ -1,0 +1,66 @@
+---
+title: "Automatically keep project dependencies up to date with Renovate"
+date: "2022-05-23"
+summary: "In this post we look at how I keep my GitHub project dependencies up to date with Renovate. Non-breaking changes get automatically merged as soon as tests pass. Pull requests for breaking changes can be merged manually."
+---
+
+We all know that keeping dependencies up to date is a tedious process. For way too long I have been doing this manually on many projects. It's a tedious process. You need to remember to periodically check all dependencies and see if there are any updates. If there are (there always are), you need to manually install and test them.
+
+No longer. Thanks to Renovate I managed to automate most of this away. It will scan your dependencies and open pull requests for any new update. You might have heard of Dependabot by GitHub. Renovate is that but on steroids. It offers more customizations and features that allow for greater automation. This is particularly nice for those forgotten site projects that you no longer spent a lot of time but still need to be kept up to date.
+
+## Workflow
+
+Here's what I want the tool to do for me
+
+- Updates need to be grouped together and delivered every Monday morning. This prevents me from getting daily dependency updates which can be annoying. It also keeps infrastructure cost down by only running the CI/CD pipeline once instead of separately for every single package update.
+- The earliest a package update should be installed is 7 days after its release. This minimizes the risk of bringing malicious code into the project before such attacks can be discovered.
+- Non-breaking updates (patch and minor versions) should be automatically merged into `main`. Provided the tests on the pull request pass.
+- For major updates pull requests should be opened but not grouped and automatically merged. That's because reading the changelog and manually dealing with potential breaking changes for each package is required.
+
+## Setup
+
+To get started, add their [GitHub App](https://github.com/marketplace/renovate) to your profile. Then, chose which repositories you want to use it on.
+
+Renovate will now automatically create a pull request for you that adds a `renovate.json` file to your repository. You can also move this file to the `.github/` subfolder if you like. However, to make Renovate behave the way we want the config must be extended.
+
+Here’s how my `renovate.json` file looks like. It implements the workflow I described above.
+
+```json
+{
+  "extends": ["config:base"],
+  "stabilityDays": 7,
+  "prCreation": "not-pending",
+  "timezone": "Europe/Zurich",
+  "schedule": ["before 5am on Monday"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "labels": ["dependencies"],
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "breaking"],
+      "automerge": false
+    }
+  ]
+}
+```
+
+I don't enable automatic merge on important projects I actively work on. On those projects it's worth it for me to quickly go through non-breaking dependency updates and merge them manually if they're okay.
+
+# Conclusion
+
+After commiting the updated `renovate.json` settings, your automated dependency updater is complete.
+
+Now we have an automated but worry-free approach to managing your project's dependencies. That's how it looks like:
+
+1. Update for a package comes out
+2. Every Monday morning new updates get applied in a new pull request
+3. Your automated test suite for pull requests runs
+4. If all tests pass, non-breaking changes get automatically merged into `main`
+5. The changes get automatically deployed to production
