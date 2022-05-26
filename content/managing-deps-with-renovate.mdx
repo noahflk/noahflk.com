@@ -30,6 +30,8 @@ Here’s how my `renovate.json` file looks like. It implements the workflow I de
   "extends": ["config:base"],
   "stabilityDays": 7,
   "prCreation": "not-pending",
+  "internalChecksFilter": "strict",
+  "updateNotScheduled": true,
   "timezone": "Europe/Zurich",
   "schedule": ["before 5am on Monday"],
   "packageRules": [
