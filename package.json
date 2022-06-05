@@ -44,7 +44,7 @@
     "eslint-plugin-react": "7.30.0",
     "eslint-plugin-react-hooks": "4.5.0",
     "file-loader": "6.2.0",
-    "globby": "12.2.0",
+    "globby": "13.1.1",
     "prettier": "2.6.2",
     "rss": "1.2.2"
   }
