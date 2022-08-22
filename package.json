@@ -26,7 +26,7 @@
     "reading-time": "1.5.0",
     "rehype-autolink-headings": "6.1.1",
     "rehype-katex": "6.0.2",
-    "rehype-prism-plus": "0.1.0",
+    "rehype-prism-plus": "1.4.2",
     "rehype-slug": "5.0.1",
     "remark-footnotes": "4.0.1",
     "remark-gfm": "2.0.0",
