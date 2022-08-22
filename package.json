@@ -14,7 +14,7 @@
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
     "esbuild": "0.14.42",
-    "framer-motion": "6.3.4",
+    "framer-motion": "7.1.1",
     "gray-matter": "4.0.3",
     "image-size": "1.0.1",
     "mdx-bundler": "6.0.3",
