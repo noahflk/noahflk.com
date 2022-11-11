@@ -1,0 +1,50 @@
+---
+import Newsletter from '@/components/Newsletter.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const allPosts = await Astro.glob('./*/index.mdx');
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+);
+
+const postsByYear = sortedPosts.reduce((acc: any, post) => {
+  const year = new Date(post.frontmatter.pubDate).getFullYear();
+
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(post);
+
+  return acc;
+}, {});
+
+const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout title="Blog">
+  <div class="space-y-6">
+    <Newsletter />
+    <div class="py-6">
+      <h2 class="text-4xl font-semibold">Blog posts</h2>
+      <!-- {sortedPosts.map((p) => <BlogPostPreview post={p} />)} -->
+      <div class="space-y-8 pt-8">
+        {
+          sortedYears.map((year) => (
+            <div>
+              <h3 class="text-xl font-semibold">{year}</h3>
+              <ul class="py-2 space-y-2">
+                {postsByYear[year].map((post: any) => (
+                  <li>
+                    <a class="text-lg hover:underline" href={post.url}>
+                      {post.frontmatter.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>

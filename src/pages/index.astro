@@ -1,0 +1,48 @@
+---
+import BlogPostPreview from '@/components/BlogPostPreview.astro';
+import Email from '@/components/icons/Email.astro';
+import GitHub from '@/components/icons/GitHub.astro';
+import Twitter from '@/components/icons/Twitter.astro';
+import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
+import Layout from '@/layouts/Layout.astro';
+
+const allPosts = await Astro.glob('./blog/*/index.mdx');
+const sortedRecentPosts = allPosts
+  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="Home">
+  <div class="space-y-6">
+    <h1 class="text-3xl font-bold md:text-5xl">Hi, I'm Noah 👋</h1>
+    <h2 class="text-lg">I'm a maker and freelance web developer based in Switzerland 🇨🇭</h2>
+    <div class="flex space-x-3">
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`https://github.com/${HANDLE_GITHUB}`}
+        target="_blank"
+      >
+        <GitHub />
+      </a>
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`https://twitter.com/${HANDLE_TWITTER}`}
+        target="_blank"
+      >
+        <Twitter />
+      </a>
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`mailto:${EMAIL}`}
+        target="_blank"
+      >
+        <Email />
+      </a>
+    </div>
+    <!-- <Newsletter /> -->
+    <div class="py-6">
+      <h3 class="text-4xl font-semibold">Latest posts</h3>
+      {sortedRecentPosts.map((p) => <BlogPostPreview post={p} />)}
+    </div>
+  </div>
+</Layout>

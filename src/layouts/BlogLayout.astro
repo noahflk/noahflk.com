@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Newsletter from '@/components/Newsletter.astro';
+
+import { getHumanizedDate } from '@/utils/date';
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <div>
+    <article class="prose lg:prose-lg dark:prose-invert">
+      <h1>{frontmatter.title}</h1>
+      <p>Published on {getHumanizedDate(frontmatter.pubDate)}</p>
+      <slot />
+    </article>
+    <div class="pt-12 pb-8">
+      <Newsletter />
+    </div>
+  </div>
+</Layout>

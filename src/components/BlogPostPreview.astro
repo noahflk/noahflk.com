@@ -1,0 +1,21 @@
+---
+export interface Props {
+  post: any;
+}
+
+import { parseISO, format } from 'date-fns';
+import { getSlugFromPath } from '@/utils/getSlugFromPath';
+
+const { post } = Astro.props;
+const url = '/blog/' + getSlugFromPath(post.file);
+const date = parseISO(post.frontmatter.pubDate);
+const formattedDate = format(date, 'LLLL d, yyyy');
+---
+
+<a href={url}>
+  <div class="space-y-2 mt-6">
+    <h4 class="text-xl font-medium">{post.frontmatter.title}</h4>
+    <p class="opacity-90 font-light">{formattedDate}</p>
+    <p class="opacity-90">{post.frontmatter.summary}</p>
+  </div>
+</a>
