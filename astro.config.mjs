@@ -8,7 +8,7 @@ import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
 
 export default defineConfig({
-  site: 'https://noahflk-astro.vercel.app/',
+  site: 'https://noahflk.com/',
   integrations: [
     sitemap(),
     tailwind({
