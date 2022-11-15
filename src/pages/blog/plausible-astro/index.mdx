@@ -1,0 +1,61 @@
+---
+title: 'Using Plausible Analytics for Astro on Vercel bypassing blockers'
+pubDate: '2022-11-15'
+summary: 'This guide will show you how to set up Plausible Analtytics for an Astro site on Vercel. We will proxy the traffic through our Vercel in order to avoid getting blocked by ad blockers.'
+layout: ../../../layouts/BlogLayout.astro
+---
+
+import Image from '@/components/Image.astro';
+
+# Using Plausible Analytics for Astro on Vercel bypassing blockers
+
+[Plausible.io](http://Plausible.io) is a lightweight open-source analytics service. They offer a hosted and self-hosted option. It’s a great Google Analytics alternative that I’ve been using for quite some time now.
+
+# Setting up your application
+
+## Proxy the analytics script
+
+Ad blockers often block Plausibles analytics script and events. This means that we won’t receive any analytics data for users with ad block enabled.
+
+To avoid this, we will proxy all traffic to Plausible’s domain through our server. That way, ad blockers have a much harder time blocking analytics traffic. And thus, we will receive data from all our users.
+
+To achieve this, create a file called `vercel.json` in your project root. Then add the following content:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/plausible/js/script.js",
+      "destination": "https://plausible.io/js/script.js"
+    },
+    {
+      "source": "/plausible/api/event",
+      "destination": "https://plausible.io/api/event"
+    }
+  ]
+}
+```
+
+This will proxy both the loading of the Plausible embed and the API endpoint to post activity through our server.
+
+## Add the Plausible analytics script
+
+Before you do this, you must create a project in the Plausible dashboard for this domain.
+
+After setting up the project, add the script below to the `<head>` of your HTML. You can find this in the `src/layouts/Layouts.astro` file. Don’t forget to add your domain to the `data-domain` attribute.
+
+```html
+<script defer data-domain="yourwebsite.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
+```
+
+# Wrapping up
+
+Plausible is now configured on our Astro site. From now on traffic will be captured in the Plausible dashboard. We have maximized the data we gather by proxying the data through our server.
+
+Without the proxy, uBlock origin blocks the Plausible script on my personal site.
+
+<Image src={import('./blocked.png')} alt="Screenshot from uBlock Origin that shows Plausible as blocked." />
+
+After adding the proxy, nothing gets blocked anymore.
+
+<Image src={import('./nothing-blocked.png')} alt="Screenshot from uBlock Origin with nothing blocked on noahflk.com." />
