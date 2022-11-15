@@ -22,6 +22,7 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: 'poimandres',
+      wrap: true,
     },
   },
 });
