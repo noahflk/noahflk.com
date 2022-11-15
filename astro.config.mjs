@@ -19,4 +19,9 @@ export default defineConfig({
     mdx(),
     svelte(),
   ],
+  markdown: {
+    shikiConfig: {
+      theme: 'poimandres',
+    },
+  },
 });
