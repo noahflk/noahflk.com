@@ -23,6 +23,16 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} - @noahflk</title>
+
+    <!-- OG Card -->
+    <meta property="og:site_name" content="Noahflk" />
+    <meta property="og:title" content="Noahflk" />
+    <meta property="og:description" content="I'm a maker and freelance web developer based in Switzerland." />
+    <meta property="og:url" content="http://noahflk.com" />
+    <meta property="og:image" content="http://noahflk.com/images/share.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
