@@ -56,7 +56,7 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
     </script>
   </head>
   <body class="bg-white dark:bg-primary-dark text-primary-dark-text dark:text-primary-light">
-    <main class="space-y-10 md:space-y-14 py-8">
+    <main class="space-y-10 md:space-y-14 pt-8 pb-2">
       <div class="max-w-4xl flex justify-between items-start mx-auto px-6">
         <a href="/">
           <img class="w-12" src="/images/logo.svg" />
@@ -80,5 +80,12 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
         <slot />
       </div>
     </main>
+    <footer class="flex justify-center pb-8 text-gray-300">
+      <p>
+        <a class="hover:underline" href="https://twitter.com/noahflk" target="_blank">noahflk</a> - &copy;{
+          new Date().getFullYear()
+        }
+      </p>
+    </footer>
   </body>
 </html>
