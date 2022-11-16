@@ -9,9 +9,9 @@ import Image from '@/components/Image.astro';
 
 [Plausible.io](http://Plausible.io) is a lightweight open-source analytics service. They offer a hosted and self-hosted option. It’s a great Google Analytics alternative that I’ve been using for quite some time now.
 
-# Setting up your application
+## Setting up your application
 
-## Proxy the analytics script
+### Proxy the analytics script
 
 Ad blockers often block Plausibles analytics script and events. This means that we won’t receive any analytics data for users with ad block enabled.
 
@@ -36,7 +36,7 @@ To achieve this, create a file called `vercel.json` in your project root. Then a
 
 This will proxy both the loading of the Plausible embed and the API endpoint to post activity through our server.
 
-## Add the Plausible analytics script
+### Add the Plausible analytics script
 
 Before you do this, you must create a project in the Plausible dashboard for this domain.
 
@@ -46,7 +46,7 @@ After setting up the project, add the script below to the `<head>` of your HTML.
 <script defer data-domain="yourwebsite.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
 ```
 
-# Wrapping up
+## Wrapping up
 
 Plausible is now configured on our Astro site. From now on traffic will be captured in the Plausible dashboard. We have maximized the data we gather by proxying the data through our server.
 
