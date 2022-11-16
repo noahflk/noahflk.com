@@ -1,23 +1,23 @@
 ## noahflk.com
 
-This is the repository for my personal website and blog https://noahflk.com built on top of Next.js and MDX.
+This is the repository for my personal website and blog https://noahflk.com built on top of Astro and Tailwind CSS.
 
 ## Running Locally
 
 ```bash
 # Install the dependencies
-yarn install
+npm install
 # Run the development server
-yarn dev
+npm run dev
 ```
 
 ## Technologies
 
-- [Next.js](https://nextjs.org/)
+- [Astro](https://astro.build/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Vercel](https://vercel.com)
 - [MDX](https://github.com/mdx-js/mdx)
-- [Chakra UI](https://chakra-ui.com/)
 
-## Acknowledgements
+## License
 
-The code that integrats with `mdx-bundler` is primarily sourced from this Next.js MDX Blog template: https://github.com/timlrx/tailwind-nextjs-starter-blog
+`noahflk.com` is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
