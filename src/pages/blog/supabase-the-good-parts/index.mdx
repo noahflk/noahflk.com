@@ -5,7 +5,7 @@ summary: "What I like about Supabase and what I don't."
 layout: ../../../layouts/BlogLayout.astro
 ---
 
-# Introduction
+## Introduction
 
 For those that don’t know Supabase: it’s an open-source Firebase alternative. You can self-host it, but most people use the official hosting. There is a limited free tier and a $25 per project per month paid plan. That price can be steep when starting out with a small side project. But it becomes great value as the project grows.
 
@@ -15,7 +15,7 @@ I’m also not going to write about the real-time feature of Supabase because I 
 
 The same goes for Supabase edge functions. I deploy my sites on Vercel and use their backend hosting. So I just haven’t needed them. What I will write about are the database and authentication services of Supabase.
 
-# Query limitations
+## Query limitations
 
 You cannot execute raw SQL queries from the Supabase client. I’m sure there are reasons for this. But I often find myself wanting to write queries that the Supabase client does not support. Or that would at least be far more efficient when using proper SQL.
 
@@ -27,7 +27,7 @@ const { data, error } = await supabase.rpc('hello_world');
 
 I don’t like this because the code for it is stowed away in the database. This means that every time I want to read or change it I need to leave my editor and go to the Supabase GUI. And it also means I now have logic inside my DB and thus outside of my codebase. Another option would be using a [Postgres view](https://supabase.com/blog/postgresql-views). But that comes with similar drawbacks.
 
-# Ephemeral database structure
+## Ephemeral database structure
 
 I like my database structure to be ephemeral. This means that I can tear it down and set it up again at any time (assuming there is no data). The source of truth for its structure should be in my codebase.
 
@@ -35,7 +35,7 @@ When using an ORM like Prisma that’s the case. All my tables are defined in th
 
 If you’re relying on the Supabase client, that’s not possible. You don’t define a schema in your client. Instead, you set it up in the Supabase GUI or via raw SQL statements. Sure, I can write SQL scripts to define my schema. Those can be re-run whenever I need to redo the DB setup. But to me, that’s less ergonomic than having a Prisma-like schema.
 
-# The problem of going directly from DB to frontend
+## The problem of going directly from DB to frontend
 
 In real-world apps, you often want to aggregate data before sending it to the frontend. That’s what a proper backend is for. You can run intensive operations there without putting unnecessary load on the client.
 
@@ -45,17 +45,17 @@ Now assume you use the Supabase client and go directly from DB to frontend. In t
 
 I think Supabase edge functions could handle this use-case well. I haven’t tried them out since I’m happy with Next.js API routes hosted on Vercel.
 
-# Typesafety
+## Typesafety
 
 The Supabase JS client in combination with TypeScript is… adventurous. There is the option to [generate types](https://supabase.com/docs/reference/javascript/generating-types) from your DB schema. However, this isn’t very ergonomic since you need to use a third-party CLI tool for it. It’s worth mentioning that Supabase just [announced](https://supabase.com/blog/supabase-js-v2) the V2 JS client which comes with better type support. I haven’t tried it out yet so I can’t say how it compares to Prisma. What I can say is that the experience of working with Prisma is leagues ahead of the current Supabase client when it comes to types.
 
-# Authentication
+## Authentication
 
 Authentication is by far the greatest thing about Supabase, if you ask me. With their $25 a month plan you get 100,000 monthly active users. One hundred thousand. Auth0 doesn’t even list a price for that volume. You need to go through their enterprise sales channel. I assume you’d be paying hundreds a month for it.
 
 The developer experience of integrating auth is pretty good too. It’s not like you only have to call one login function and boom your auth is done. There’s a bit more work to it if you want to have protected pages and access to the authed user on Next.js API routes. But everything is well documented and easy to implement.
 
-# Authorization
+## Authorization
 
 Per default, your tables have no protection whatsoever. We don’t want that. So we need to enable the row level security (RLS) feature. Its defaults block all access from the Supabase client.
 
@@ -63,7 +63,7 @@ I like how they use RLS for authorization. It’s a native Postgres feature inst
 
 I’m someone who’s used to the classic way of defining authorization. In my backend source code. So it was a big shift for me of trying to achieve the same with RLS. Don’t get me wrong. RLS is a very powerful system. It’s just very different from what I’m used to doing for authorization.
 
-# Pick the good parts of Supabase while ignoring the rest
+## Pick the good parts of Supabase while ignoring the rest
 
 I’m not a fan of using the Supabase client for fetching data. Yes, it may be great for beginners who just want some data in their frontend. Without running their own backend. Solutions that are so simple and try to abstract the backend rarely scale well to real-world use cases. You spend far more time creating workarounds than what the “easy” solution saves you. Another example of this is Hasura. It may look great for simple CRUD demos. But as soon as you try to solve actual problems you start having to fight its limitations.
 
