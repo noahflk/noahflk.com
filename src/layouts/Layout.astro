@@ -4,9 +4,10 @@ import '@/styles/base.css';
 import { classNames } from '@/utils/styling';
 export interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props as Props;
+const { title, description } = Astro.props as Props;
 
 const currentPath = new URL(Astro.request.url).pathname;
 
@@ -25,9 +26,12 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
     <title>{title} - @noahflk</title>
 
     <!-- OG Card -->
-    <meta property="og:site_name" content="Noahflk" />
-    <meta property="og:title" content="Noahflk" />
-    <meta property="og:description" content="I'm a maker and freelance web developer based in Switzerland." />
+    <meta property="og:site_name" content="noahflk.com" />
+    <meta property="og:title" content={`${title} - @noahflk`} />
+    <meta
+      property="og:description"
+      content={description ?? "I'm a maker and freelance web developer based in Switzerland."}
+    />
     <meta property="og:url" content="http://noahflk.com" />
     <meta property="og:image" content="http://noahflk.com/images/share.png" />
     <meta property="og:type" content="website" />
