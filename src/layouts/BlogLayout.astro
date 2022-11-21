@@ -7,7 +7,7 @@ import { getHumanizedDate } from '@/utils/date';
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title}>
+<Layout title={frontmatter.title} description={frontmatter.summary}>
   <div>
     <article class="prose lg:prose-lg dark:prose-invert">
       <h1>{frontmatter.title}</h1>
