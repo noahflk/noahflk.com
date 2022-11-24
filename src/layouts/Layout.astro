@@ -3,7 +3,7 @@ import ColorToggle from '@/components/ColorToggle.svelte';
 import '@/styles/base.css';
 import { classNames } from '@/utils/styling';
 export interface Props {
-  title: string;
+  title?: string;
   description?: string;
 }
 
@@ -23,7 +23,7 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
     <meta name="description" content="Personal website and blog of @noahflk" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title} - @noahflk</title>
+    <title>{title && title + ' - '}@noahflk</title>
 
     <!-- OG Card -->
     <meta property="og:site_name" content="noahflk.com" />
