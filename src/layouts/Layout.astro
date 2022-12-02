@@ -20,10 +20,14 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Personal website and blog of @noahflk" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title && title + ' - '}@noahflk</title>
+
+    <!-- SEO Stuff -->
+    <link rel="canonical" href={Astro.request.url} />
+    <meta name="description" content={description ?? 'Personal website and blog of @noahflk'} />
+    <meta name="robots" content="follow, index" />
 
     <!-- OG Card -->
     <meta property="og:site_name" content="noahflk.com" />
