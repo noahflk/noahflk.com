@@ -1,0 +1,172 @@
+---
+title: 'Supabase with TypeScript: using tRPC and Prisma to achieve end-to-end typesafety'
+pubDate: '2022-12-06'
+summary: 'This guide will show you how to achieve end-to-end typesafety in a Supabase app with Next.js, tRPC and Prisma.'
+layout: ../../../layouts/BlogLayout.astro
+---
+
+import Image from '@/components/Image.astro';
+
+## Introduction
+
+This post picks up on an article I wrote earlier this year titled [The good parts of Supabase](https://noahflk.com/blog/supabase-the-good-parts). Wherein I reflected on my experience building [Railtrack](https://github.com/noahflk/railtrack) with Next.js and [Supabase](https://supabase.com/). If you're curious, you can read the whole post.
+
+I started building Railtrack with plain Next.js and Supabase. I didn’t even have any Next API routes apart from the Supabase one for auth. I did all the queries client-side through the Supabase JS library.
+
+The Supabase JS client makes it possible to build full-stack apps without any backend knowledge. Or the need to host a separate Node server. This is great for beginners and anyone else who’s trying to build a simple straightforward web app. And if this description fits you, I highly recommend starting out that way.
+
+### Limitations
+
+As great as this approach is for small projects, it doesn’t scale that nicely. As my project grew, I ran into some limitations that started to bother me:
+
+- TypeScript experience with queries wasn’t great. This has been improved since then with Supabase JS 2.0.
+- No SQL query support directly from the client. Postgres stored procedure necessary.
+- Ephemeral database structure. You define it in the Supabase UI and not in the code.
+- Authorization through Row Level Security instead of the typical backend way.
+- Queries go straight from DB to the front end. So no possibility to process data on my backend beforehand.
+
+For a full explanation of these things check out my previous [post](https://noahflk.com/blog/supabase-the-good-parts).
+
+## Making Supabase even more powerful with Prisma and tRPC
+
+As you see, all of the issues I mentioned stem from querying Supabase via their JS Client and not having our own backend. Luckily that’s only one of many use cases for Supabase.
+
+So instead, we’ll query Supabase like any other Postgres database on our own backend through an ORM called Prisma. Next.js APi routes will serve as our backend. For communication between the backend and the front end we’ll use tRPC. The combination of Prisma and tRPC gives us full type-safety between the database, backend, and front end. With the source of truth being our Prisma schema.
+
+This more traditional setup solves all of the problems I mentioned above. And we’ll still get to benefit from the numerous other benefits Supabase offers:
+
+- Great pricing as you scale
+- Admin web interface to view and manage your database
+- Amazing auth solution, both for email/password and social auth
+
+## Guide
+
+As a base we’re going to use the popular `create-t3-app` CLI to create our app with:
+
+- Next.js
+- Prisma
+- tRPC
+- TypeScript
+
+It also offers Tailwind CSS and NextAuth. Feel free to add Tailwind for styling if you want. We don’t deal with authentication in this tutorial. But `create-t3-app` gives you the option of using Next Auth. I personally prefer using Supabase Auth directly for better support of email/password login.
+
+### Creating the project
+
+Run this in your command line:
+
+```bash
+npm create t3-app@latest
+```
+
+Here are the options I chose:
+
+<Image
+  src={import('./t3-options.png')}
+  alt="Screenshot of my terminal showing the options descibed above I chose for the create-t3-app configuration."
+/>
+
+### Accessing the Supabase Postgres DB
+
+Log into [supabase.com](http://supabase.com) and create a new project. After that, copy the Anon public key and the Postgres connection string into the `.env` file:
+
+```
+DATABASE_URL=postgres://YOUR_PASSWORD@db.YOUR_URL.supabase.co:6543/postgres
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+```
+
+Change the database provider to `postgresql` and add a `text` property to the Example model:
+
+```prisma
+// prisma/schema.prisma
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Example {
+  id        String   @id @default(cuid())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
+
+Our database is now plugged into Prisma and ready to go. Run the following command:
+
+```bash
+npx prisma db push
+```
+
+Check the Supabase dashboard and you will be able to see the new table is created.
+
+**Enable Row Level Security (RLS) on that and every other table you’re going to create.** But you don’t need to create any rules. What we want to do is protect the DB from being accessed publicly. But we can still access everything through Prisma with the password our server has.
+
+## Using it
+
+As you can see, we haven’t done anything Supabase-specific in our code. We didn’t need to use their JS client for anything. But we get all the other Supbase benefits plus full end-to-end type-safety.
+
+We can add a very simple component to fetch and display all the `Example` entries from our database. Add this component using `<ShowExamples />` anywhere within your `src/pages/index.tsx` file.
+
+In this `ShowExamples` component we’re going to fetch the example entries via tRPC:
+
+```tsx
+import { trpc } from '../utils/trpc';
+
+export const ShowExamples = () => {
+  const examples = trpc.example.getAll.useQuery();
+
+  if (!examples.data) return <p>Loading...</p>;
+
+  return (
+    <div>
+      <ul>
+        {examples.data.map((example) => (
+          <li key={example.id}>{example.text}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
+
+Notice how our editor knows that `example` contains a `text` property of type string. If we were to rename this on our backend, TypeScript would notice this. It would then throw an error saying the `text` property no longer exists. Magical, isn’t it?
+
+Now we need a way to add entries to our database. For this we create a second component called `AddExample`. Also, add that to your `src/pages/index.tsx` file:
+
+```tsx
+import { useState } from 'react';
+
+import { trpc } from '../utils/trpc';
+
+export const AddExample = () => {
+  const addExample = trpc.example.create.useMutation();
+  const utils = trpc.useContext();
+
+  const [text, setText] = useState('');
+
+  return (
+    <div>
+      <input placeholder="name" value={text} onChange={(event) => setText(event.target.value)} />
+      <button
+        onClick={() => {
+          addExample.mutate(text, {
+            onSuccess: () => {
+              utils.example.getAll.invalidate();
+              setText('');
+            },
+          });
+        }}
+        disabled={addExample.isLoading}
+      >
+        Create
+      </button>
+      {addExample.isLoading && <p>Saving...</p>}
+    </div>
+  );
+};
+```
+
+This does a bit more tRPC magic. Or to be more precise, React Query magic. Which powers the data fetching in tRPC.
+
+After successfully executing the mutation to add a new example we invalidate our old query from the `ShowExamples` component. And any other component where we call `trpc.example.getAll.useQuery()`. Invalidate tells React Query that this data is now state and needs to be re-fetched immediately. We could also add optimistic updating to immediately display changes in the UI. For this, check out the [docs](https://tanstack.com/query/v4/docs/guides/optimistic-updates).
