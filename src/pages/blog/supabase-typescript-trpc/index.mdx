@@ -170,3 +170,10 @@ export const AddExample = () => {
 This does a bit more tRPC magic. Or to be more precise, React Query magic. Which powers the data fetching in tRPC.
 
 After successfully executing the mutation to add a new example we invalidate our old query from the `ShowExamples` component. And any other component where we call `trpc.example.getAll.useQuery()`. Invalidate tells React Query that this data is now state and needs to be re-fetched immediately. We could also add optimistic updating to immediately display changes in the UI. For this, check out the [docs](https://tanstack.com/query/v4/docs/guides/optimistic-updates).
+
+## Links
+
+- [Supabase](https://supabase.com)
+- [Supabase launch week](https://supabase.com/launch-week)
+- [tRPC](https://trpc.io)
+- [Repository with the example code](https://github.com/noahflk/typesafe-supabase-example)
