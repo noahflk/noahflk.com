@@ -202,6 +202,8 @@ Imagine user A sets the language into German on device A. He then logs in on dev
 For Railtrack, I chose the strategy of invalidating the cookies on every sign in and sign up. Add the following snippet wherever you perform your sign in and sign up actions.
 
 ```tsx
+import { deleteCookie } from 'cookies-next';
+
 import { LANG_COOKIE_KEY } from 'utils/getLocale';
 
 // add this inside the login function handler
