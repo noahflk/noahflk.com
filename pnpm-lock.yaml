@@ -2,21 +2,21 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/image': ^0.12.0
-  '@astrojs/mdx': ^0.12.0
+  '@astrojs/mdx': ^0.13.0
   '@astrojs/prefetch': ^0.1.1
   '@astrojs/rss': ^1.0.3
   '@astrojs/sitemap': ^1.0.0
   '@astrojs/svelte': ^1.0.2
   '@astrojs/tailwind': ^2.1.3
   '@tailwindcss/typography': ^0.5.8
-  astro: 1.6.14
+  astro: 1.7.1
   date-fns: ^2.29.3
   svelte: ^3.46.4
   tailwindcss: ^3.0.24
 
 dependencies:
   '@astrojs/image': 0.12.1
-  '@astrojs/mdx': 0.12.0_rollup@2.79.1
+  '@astrojs/mdx': 0.13.0_rollup@2.79.1
   '@astrojs/prefetch': 0.1.1
   '@astrojs/rss': 1.0.3
   '@astrojs/sitemap': 1.0.0
@@ -28,7 +28,7 @@ dependencies:
 
 devDependencies:
   '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
-  astro: 1.6.14
+  astro: 1.7.1
 
 packages:
 
@@ -47,8 +47,8 @@ packages:
     resolution: {integrity: sha512-6ZbRGVunUMHxROD9Cleqkrfrj/kM9o43nLVwycdxCexCB5G372evy2ZM46LhaG/k5B5yC0PByNHTaGny0ll3iQ==}
     dev: true
 
-  /@astrojs/compiler/0.30.1:
-    resolution: {integrity: sha512-sH3hvGA9JR5eE2bHG3sr5QjaJl5ER9EmmZzSwBHkMPoBj0XU7XzQjSGoyCbIML6sSaelJEPnfsr9NsypvKOecg==}
+  /@astrojs/compiler/0.31.3:
+    resolution: {integrity: sha512-WbA05QH5xkdaJ3XtzDuYOjtqsip2InW5rk156sSdaHs5qN2NroUHbzWZthHJwmNAAjQSGXVIj+O6jQj81zzX/Q==}
     dev: true
 
   /@astrojs/image/0.12.1:
@@ -118,8 +118,8 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/mdx/0.12.0_rollup@2.79.1:
-    resolution: {integrity: sha512-KeX5YYla4KpiiDBVmbaYGqqt9QLVUj/Q2d3u+VRK3WnGI+lN9bVsJLid4wApU/kTA6iWlquIrbX2XmhUUF6viQ==}
+  /@astrojs/mdx/0.13.0_rollup@2.79.1:
+    resolution: {integrity: sha512-2D/O5AjCBQQ/PLx3P/WysACdFxz97iQPu55hy9pc+u04a+fMFuVdKm9ftWXpsNHL2SXbKb7uRpcuFw93FnRNDw==}
     engines: {node: ^14.18.0 || >=16.12.0}
     dependencies:
       '@astrojs/prism': 1.0.2
@@ -883,12 +883,12 @@ packages:
     hasBin: true
     dev: false
 
-  /astro/1.6.14:
-    resolution: {integrity: sha512-8ljrWPKEU5Hrrbupan48ba4gLWPY14Aqiv4u0U92wSl3wtsqPJUWWlHGGkXcgS/9dx8aiLkUm4RzCPFVnP7V2w==}
+  /astro/1.7.1:
+    resolution: {integrity: sha512-ENfHAm8/zYPgO5G1KJtCzt+hnTJaYdfjYqFWBB9PcBdxlHOOQvOd1zWCVX+uOvwKe8+ASUHXyyyULh3qlB5UUQ==}
     engines: {node: ^14.18.0 || >=16.12.0, npm: '>=6.14.0'}
     hasBin: true
     dependencies:
-      '@astrojs/compiler': 0.30.1
+      '@astrojs/compiler': 0.31.3
       '@astrojs/language-server': 0.28.3
       '@astrojs/markdown-remark': 1.1.3
       '@astrojs/telemetry': 1.0.1
@@ -910,8 +910,9 @@ packages:
       cookie: 0.5.0
       debug: 4.3.4
       deepmerge-ts: 4.2.2
+      devalue: 4.2.0
       diff: 5.1.0
-      es-module-lexer: 0.10.5
+      es-module-lexer: 1.1.0
       execa: 6.1.0
       fast-glob: 3.2.12
       github-slugger: 1.5.0
@@ -920,7 +921,7 @@ packages:
       html-escaper: 3.0.3
       import-meta-resolve: 2.2.0
       kleur: 4.1.5
-      magic-string: 0.25.9
+      magic-string: 0.27.0
       mime: 3.0.0
       ora: 6.1.2
       path-browserify: 1.0.1
@@ -1273,6 +1274,10 @@ packages:
       defined: 1.0.1
       minimist: 1.2.7
 
+  /devalue/4.2.0:
+    resolution: {integrity: sha512-mbjoAaCL2qogBKgeFxFPOXAUsZchircF+B/79LD4sHH0+NHfYm8gZpQrskKDn5gENGt35+5OI1GUF7hLVnkPDw==}
+    dev: true
+
   /didyoumean/1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
 
@@ -1312,6 +1317,11 @@ packages:
 
   /es-module-lexer/0.10.5:
     resolution: {integrity: sha512-+7IwY/kiGAacQfY+YBhKMvEmyAJnw5grTUgjG85Pe7vcUI/6b7pZjZG8nQ7+48YhzEAEqrEgD2dCz/JIK+AYvw==}
+    dev: false
+
+  /es-module-lexer/1.1.0:
+    resolution: {integrity: sha512-fJg+1tiyEeS8figV+fPcPpm8WqJEflG3yPU0NOm5xMvrNkuiy7HzX/Ljng4Y0hAoiw4/3hQTCFYw+ub8+a2pRA==}
+    dev: true
 
   /es6-error/4.1.1:
     resolution: {integrity: sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==}
@@ -2393,6 +2403,7 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
       sourcemap-codec: 1.4.8
+    dev: false
 
   /magic-string/0.26.7:
     resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
@@ -2400,6 +2411,13 @@ packages:
     dependencies:
       sourcemap-codec: 1.4.8
     dev: false
+
+  /magic-string/0.27.0:
+    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
 
   /markdown-extensions/1.1.1:
     resolution: {integrity: sha512-WWC0ZuMzCyDHYCasEGs4IPvLyTGftYwh6wIEOULOF0HXcqZlhwRzrK0w2VUlxWA98xnvb/jszw4ZSkJ6ADpM6Q==}
@@ -3651,6 +3669,7 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+    dev: false
 
   /space-separated-tokens/2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
