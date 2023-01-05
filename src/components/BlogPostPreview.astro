@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 
 import { parseISO, format } from 'date-fns';
-import { getSlugFromPath } from '@/utils/url';
+import { getBlogUrl, getSlugFromPath } from '@/utils/url';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
@@ -10,12 +10,11 @@ export interface Props {
 
 const { post } = Astro.props;
 
-const url = '/blog/' + getSlugFromPath(post.slug);
 const date = parseISO(post.data.pubDate);
 const formattedDate = format(date, 'LLLL d, yyyy');
 ---
 
-<a href={url}>
+<a href={getBlogUrl(post)}>
   <div class="space-y-2 mt-6">
     <h4 class="text-xl font-medium">{post.data.title}</h4>
     <p class="opacity-90 font-light">{formattedDate}</p>
