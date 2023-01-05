@@ -43,9 +43,51 @@ declare module 'astro:content' {
 
 	const entryMap: {
 		"blog": {
-"test.md": {
-  id: "test.md",
-  slug: "test",
+"managing-deps-with-renovate/index.mdx": {
+  id: "managing-deps-with-renovate/index.mdx",
+  slug: "managing-deps-with-renovate/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"multilang-next-app/index.mdx": {
+  id: "multilang-next-app/index.mdx",
+  slug: "multilang-next-app/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"next-image-optimization/index.mdx": {
+  id: "next-image-optimization/index.mdx",
+  slug: "next-image-optimization/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"plausible-astro/index.mdx": {
+  id: "plausible-astro/index.mdx",
+  slug: "plausible-astro/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"react-accessibility/index.mdx": {
+  id: "react-accessibility/index.mdx",
+  slug: "react-accessibility/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"supabase-the-good-parts/index.mdx": {
+  id: "supabase-the-good-parts/index.mdx",
+  slug: "supabase-the-good-parts/index",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"supabase-typescript-trpc/index.mdx": {
+  id: "supabase-typescript-trpc/index.mdx",
+  slug: "supabase-typescript-trpc/index",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
