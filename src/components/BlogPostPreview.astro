@@ -1,21 +1,23 @@
 ---
-export interface Props {
-  post: any;
-}
+import type { CollectionEntry } from 'astro:content';
 
 import { parseISO, format } from 'date-fns';
-import { getSlugFromPath } from '@/utils/getSlugFromPath';
+import { getBlogUrl, getSlugFromPath } from '@/utils/url';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
 
 const { post } = Astro.props;
-const url = '/blog/' + getSlugFromPath(post.file);
-const date = parseISO(post.frontmatter.pubDate);
+
+const date = parseISO(post.data.pubDate);
 const formattedDate = format(date, 'LLLL d, yyyy');
 ---
 
-<a href={url}>
+<a href={getBlogUrl(post)}>
   <div class="space-y-2 mt-6">
-    <h4 class="text-xl font-medium">{post.frontmatter.title}</h4>
+    <h4 class="text-xl font-medium">{post.data.title}</h4>
     <p class="opacity-90 font-light">{formattedDate}</p>
-    <p class="opacity-90">{post.frontmatter.summary}</p>
+    <p class="opacity-90">{post.data.summary}</p>
   </div>
 </a>

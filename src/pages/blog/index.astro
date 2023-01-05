@@ -1,14 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
+
 import Newsletter from '@/components/Newsletter.astro';
 import Layout from '@/layouts/Layout.astro';
+import type { Post } from '@/types/blog';
+import { getBlogUrl } from '@/utils/url';
+import { getSortedPosts } from '@/utils/posts';
 
-const allPosts = await Astro.glob('./*/index.mdx');
-const sortedPosts = allPosts.sort(
-  (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
-);
+const sortedPosts = await getSortedPosts();
 
-const postsByYear = sortedPosts.reduce((acc: any, post) => {
-  const year = new Date(post.frontmatter.pubDate).getFullYear();
+// type for object with year as key and array of posts as value
+type PostsByYear = {
+  [key: string]: Post[];
+};
+
+const postsByYear = sortedPosts.reduce((acc: PostsByYear, post) => {
+  const year = new Date(post.data.pubDate).getFullYear();
 
   if (!acc[year]) {
     acc[year] = [];
@@ -26,17 +33,16 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
     <Newsletter />
     <div class="py-6">
       <h2 class="text-4xl font-semibold">Blog posts</h2>
-      <!-- {sortedPosts.map((p) => <BlogPostPreview post={p} />)} -->
       <div class="space-y-8 pt-8">
         {
           sortedYears.map((year) => (
             <div>
               <h3 class="text-xl font-semibold">{year}</h3>
               <ul class="py-2 space-y-2">
-                {postsByYear[year].map((post: any) => (
+                {postsByYear[year].map((post) => (
                   <li>
-                    <a class="text-lg hover:underline" href={post.url}>
-                      {post.frontmatter.title}
+                    <a class="text-lg hover:underline" href={getBlogUrl(post)}>
+                      {post.data.title}
                     </a>
                   </li>
                 ))}

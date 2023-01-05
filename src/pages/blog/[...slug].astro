@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+
+import Newsletter from '@/components/Newsletter.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getHumanizedDate } from '@/utils/date';
+import { removeIndexFromSlug } from '@/utils/url';
+import type { Post } from '@/types/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((entry) => ({
+    // strip /index from the end of each slug
+    params: { slug: removeIndexFromSlug(entry.slug) },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: Post;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title} description={entry.data.summary}>
+  <div>
+    <article class="prose lg:prose-lg dark:prose-invert">
+      <h1>{entry.data.title}</h1>
+      <p>Published on {getHumanizedDate(entry.data.pubDate)}</p>
+      <Content />
+    </article>
+    <div class="pt-12 pb-8">
+      <Newsletter />
+    </div>
+  </div>
+</Layout>
