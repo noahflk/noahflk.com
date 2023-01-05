@@ -5,13 +5,9 @@ import GitHub from '@/components/icons/GitHub.astro';
 import Twitter from '@/components/icons/Twitter.astro';
 import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
 import Layout from '@/layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getSortedPosts } from '@/utils/posts';
 
-const allPosts = await getCollection('blog');
-
-const sortedRecentPosts = allPosts
-  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())
-  .slice(0, 3);
+const sortedRecentPosts = (await getSortedPosts()).slice(0, 3);
 ---
 
 <Layout>
@@ -41,7 +37,6 @@ const sortedRecentPosts = allPosts
         <Email />
       </a>
     </div>
-    <!-- <Newsletter /> -->
     <div class="py-6">
       <h3 class="text-4xl font-semibold">Latest posts</h3>
       {sortedRecentPosts.map((p) => <BlogPostPreview post={p} />)}
