@@ -42,13 +42,13 @@ declare module 'astro:content' {
 	};
 
 	const entryMap: {
-		"lel": {
+		"blog": {
 "test.md": {
   id: "test.md",
   slug: "test",
   body: string,
-  collection: "lel",
-  data: InferEntrySchema<"lel">
+  collection: "blog",
+  data: InferEntrySchema<"blog">
 },
 },
 

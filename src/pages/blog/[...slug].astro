@@ -5,17 +5,16 @@ import { getHumanizedDate } from '@/utils/date';
 import { getCollection, CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const docs = await getCollection('lel');
-  return docs.map((entry) => ({
-    // Pass blog entry via props
+  const posts = await getCollection('blog');
+
+  return posts.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
 }
 
 interface Props {
-  // Optionally use `CollectionEntry` for type safety
-  entry: CollectionEntry<'lel'>;
+  entry: CollectionEntry<'blog'>;
 }
 
 const { entry } = Astro.props;

@@ -9,5 +9,5 @@ const blog = defineCollection({
 });
 
 export const collections = {
-  lel: blog,
+  blog,
 };
