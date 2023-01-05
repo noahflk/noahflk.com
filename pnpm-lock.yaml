@@ -2,21 +2,21 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/image': ^0.12.0
-  '@astrojs/mdx': ^0.13.0
+  '@astrojs/mdx': ^0.14.0
   '@astrojs/prefetch': ^0.1.1
   '@astrojs/rss': ^1.0.3
   '@astrojs/sitemap': ^1.0.0
   '@astrojs/svelte': ^1.0.2
   '@astrojs/tailwind': ^2.1.3
   '@tailwindcss/typography': ^0.5.8
-  astro: 1.7.1
+  astro: 1.8.0
   date-fns: ^2.29.3
   svelte: ^3.46.4
   tailwindcss: ^3.0.24
 
 dependencies:
   '@astrojs/image': 0.12.1
-  '@astrojs/mdx': 0.13.0_rollup@2.79.1
+  '@astrojs/mdx': 0.14.0_rollup@2.79.1
   '@astrojs/prefetch': 0.1.1
   '@astrojs/rss': 1.0.3
   '@astrojs/sitemap': 1.0.0
@@ -28,7 +28,7 @@ dependencies:
 
 devDependencies:
   '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
-  astro: 1.7.1
+  astro: 1.8.0
 
 packages:
 
@@ -87,8 +87,8 @@ packages:
       vscode-uri: 3.0.6
     dev: true
 
-  /@astrojs/markdown-remark/1.1.3:
-    resolution: {integrity: sha512-6MDuQXbrp2fZBYBIqD+0jvSqYAukiMTte6oLNHiEYsLf3KIMlVAZj6dDgUJakgL7cQ4fmzWb0HUqzVpxAsasLw==}
+  /@astrojs/markdown-remark/1.2.0:
+    resolution: {integrity: sha512-Cb+uhSuukyfERknfJ8K4iJLeKJaiZWi1BTwPS4fzw0bc9kGKe5VeTRzd2E25+vaMnRTk0tN/y6QfYEMMN3Q97g==}
     dependencies:
       '@astrojs/micromark-extension-mdx-jsx': 1.0.3
       '@astrojs/prism': 1.0.2
@@ -116,12 +116,12 @@ packages:
       vfile: 5.3.6
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
-  /@astrojs/mdx/0.13.0_rollup@2.79.1:
-    resolution: {integrity: sha512-2D/O5AjCBQQ/PLx3P/WysACdFxz97iQPu55hy9pc+u04a+fMFuVdKm9ftWXpsNHL2SXbKb7uRpcuFw93FnRNDw==}
+  /@astrojs/mdx/0.14.0_rollup@2.79.1:
+    resolution: {integrity: sha512-lmNh/7CeQmdZ0OCbnDnoDxQTKWleFdlT5YkjsutGIOhabY0xgCcWwb1Rbs/9m4vvTdCkp9zsZdRzUKEPFPbcsA==}
     engines: {node: ^14.18.0 || >=16.12.0}
     dependencies:
+      '@astrojs/markdown-remark': 1.2.0
       '@astrojs/prism': 1.0.2
       '@mdx-js/mdx': 2.1.5
       '@mdx-js/rollup': 2.1.5_rollup@2.79.1
@@ -155,7 +155,6 @@ packages:
       micromark-util-types: 1.0.2
       uvu: 0.5.6
       vfile-message: 3.1.3
-    dev: true
 
   /@astrojs/prefetch/0.1.1:
     resolution: {integrity: sha512-+XZcjivPHTo9thQshDWKnnORHJ1dE6odIzhmKHac2ptwla092eohkiJw7Y31+PYmuJkc3Jp+3AawuCvfqCnQ2Q==}
@@ -702,7 +701,6 @@ packages:
     resolution: {integrity: sha512-gcLAYiMfQklDCPjQegGn0TBAn9it05ISEsEhlKQUddIk7o2XDokOcTN7HBO8tznM0D9dGezvHEfRZBfZf6me0A==}
     dependencies:
       '@types/estree': 1.0.0
-    dev: true
 
   /@types/estree-jsx/1.0.0:
     resolution: {integrity: sha512-3qvGd0z8F2ENTGr/GG1yViqfiKmRfrXVx5sJyHGFu3z7m5g5utCQtGp/g29JnjflhtQJBv1WDQukHiT58xPcYQ==}
@@ -883,14 +881,14 @@ packages:
     hasBin: true
     dev: false
 
-  /astro/1.7.1:
-    resolution: {integrity: sha512-ENfHAm8/zYPgO5G1KJtCzt+hnTJaYdfjYqFWBB9PcBdxlHOOQvOd1zWCVX+uOvwKe8+ASUHXyyyULh3qlB5UUQ==}
+  /astro/1.8.0:
+    resolution: {integrity: sha512-MZIJveOC1OCIA0w2XmxjDtKviAEuYdF142DVq0VApInE1lm+CvAoyMgJs0a1h4mydD2vgQZpTjPhYKJIdxDjOA==}
     engines: {node: ^14.18.0 || >=16.12.0, npm: '>=6.14.0'}
     hasBin: true
     dependencies:
       '@astrojs/compiler': 0.31.3
       '@astrojs/language-server': 0.28.3
-      '@astrojs/markdown-remark': 1.1.3
+      '@astrojs/markdown-remark': 1.2.0
       '@astrojs/telemetry': 1.0.1
       '@astrojs/webapi': 1.1.1
       '@babel/core': 7.20.2
@@ -904,6 +902,7 @@ packages:
       '@types/babel__core': 7.1.20
       '@types/html-escaper': 3.0.0
       '@types/yargs-parser': 21.0.0
+      acorn: 8.8.1
       boxen: 6.2.1
       ci-info: 3.7.0
       common-ancestor-path: 1.0.1
@@ -913,6 +912,7 @@ packages:
       devalue: 4.2.0
       diff: 5.1.0
       es-module-lexer: 1.1.0
+      estree-walker: 3.0.1
       execa: 6.1.0
       fast-glob: 3.2.12
       github-slugger: 1.5.0
@@ -1788,7 +1788,6 @@ packages:
 
   /estree-walker/3.0.1:
     resolution: {integrity: sha512-woY0RUD87WzMBUiZLx8NsYr23N5BKsOMZHhu2hoNRVh6NXGfoiT1KOL8G3UHlJAnEDGmfa5ubNA/AacfG+Kb0g==}
-    dev: false
 
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
@@ -2060,7 +2059,6 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/unist': 2.0.6
-    dev: true
 
   /hast-util-parse-selector/3.1.0:
     resolution: {integrity: sha512-AyjlI2pTAZEOeu7GeBPZhROx0RHBnydkQIXlhnFzDi0qfXTmGUWoCYZtomHbrdrheV4VFUlPcfJ6LMF5T6sQzg==}
@@ -2117,7 +2115,6 @@ packages:
       space-separated-tokens: 2.0.2
       stringify-entities: 4.0.3
       unist-util-is: 5.1.1
-    dev: true
 
   /hast-util-to-parse5/7.0.0:
     resolution: {integrity: sha512-YHiS6aTaZ3N0Q3nxaY/Tj98D6kM8QX5Q8xqgg8G45zR7PvWnPGPP0vcKCgb/moIydEJ/QWczVrX0JODCVeoV7A==}
@@ -2175,7 +2172,6 @@ packages:
 
   /import-meta-resolve/2.2.0:
     resolution: {integrity: sha512-CpPOtiCHxP9HdtDM5F45tNiAe66Cqlv3f5uHoJjt+KlaLrUh9/Wz9vepADZ78SlqEo62aDWZtj9ydMGXV+CPnw==}
-    dev: true
 
   /inflight/1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
@@ -2544,7 +2540,6 @@ packages:
       unist-util-remove-position: 4.0.1
       unist-util-stringify-position: 3.0.2
       vfile-message: 3.1.3
-    dev: true
 
   /mdast-util-mdx-jsx/2.1.0:
     resolution: {integrity: sha512-KzgzfWMhdteDkrY4mQtyvTU5bc/W4ppxhe9SzelO6QUUiwLAM+Et2Dnjjprik74a336kHdo0zKm7Tp+n6FFeRg==}
@@ -3384,7 +3379,6 @@ packages:
       '@types/hast': 2.3.4
       hast-util-to-html: 8.0.3
       unified: 10.1.2
-    dev: true
 
   /rehype/12.0.1:
     resolution: {integrity: sha512-ey6kAqwLM3X6QnMDILJthGvG1m1ULROS9NT4uG9IDCuv08SFyLlreSuvOa//DgEvbXx62DS6elGVqusWhRUbgw==}
@@ -4009,7 +4003,6 @@ packages:
     resolution: {integrity: sha512-WLA2R6x/UaopedG2poaWLShf5LCi+BNa6mMkACdjft23PHou4v85PvZItjbO2XgXvukMP365PlL/DrbuMgr3eg==}
     dependencies:
       '@types/unist': 2.0.6
-    dev: true
 
   /unist-util-modify-children/3.1.0:
     resolution: {integrity: sha512-L0UizdncPZ1NIwpmkwFdLo2NaK2Eb5LU/vaQ7lZGkAaOBZfsHp+8T/gVWPVmmMO1hj6gc+XeMoytut8jr7fdyA==}
