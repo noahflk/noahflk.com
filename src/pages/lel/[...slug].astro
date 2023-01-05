@@ -1,0 +1,36 @@
+---
+import Newsletter from '@/components/Newsletter.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getHumanizedDate } from '@/utils/date';
+import { getCollection, CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('lel');
+  return docs.map((entry) => ({
+    // Pass blog entry via props
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  // Optionally use `CollectionEntry` for type safety
+  entry: CollectionEntry<'lel'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title} description={entry.data.summary}>
+  <div>
+    <article class="prose lg:prose-lg dark:prose-invert">
+      <h1>{entry.data.title}</h1>
+      <p>Published on {getHumanizedDate(entry.data.pubDate)}</p>
+      <Content />
+    </article>
+    <div class="pt-12 pb-8">
+      <Newsletter />
+    </div>
+  </div>
+</Layout>

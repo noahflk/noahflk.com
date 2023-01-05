@@ -21,6 +21,6 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
-
+  },
+  "extends": "astro/tsconfigs/strict"
 }
