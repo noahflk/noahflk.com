@@ -33,7 +33,7 @@ const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
 
     <!-- OG Card -->
     <meta property="og:site_name" content="noahflk.com" />
-    <meta property="og:title" content={`${title} - @noahflk`} />
+    <meta property="og:title" content={`${title ? title + ' - ' : ''}@noahflk`} />
     <meta
       property="og:description"
       content={description ?? "I'm a maker and freelance web developer based in Switzerland."}
