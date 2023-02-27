@@ -14,8 +14,8 @@
     "astro": "2.0.15"
   },
   "dependencies": {
-    "@astrojs/image": "^0.13.0",
-    "@astrojs/mdx": "^0.15.0",
+    "@astrojs/image": "^0.15.1",
+    "@astrojs/mdx": "^0.17.2",
     "@astrojs/prefetch": "^0.1.1",
     "@astrojs/rss": "^2.0.0",
     "@astrojs/sitemap": "^1.0.0",
