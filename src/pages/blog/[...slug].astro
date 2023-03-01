@@ -3,16 +3,14 @@ import { getCollection } from 'astro:content';
 
 import Newsletter from '@/components/Newsletter.astro';
 import Layout from '@/layouts/Layout.astro';
-import { getHumanizedDate } from '@/utils/date';
-import { removeIndexFromSlug } from '@/utils/url';
 import type { Post } from '@/types/blog';
+import { getHumanizedDate } from '@/utils/date';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
 
   return posts.map((entry) => ({
-    // strip /index from the end of each slug
-    params: { slug: removeIndexFromSlug(entry.slug) },
+    params: { slug: entry.slug },
     props: { entry },
   }));
 }

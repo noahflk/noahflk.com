@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { parseISO, format } from 'date-fns';
-import { getBlogUrl, getSlugFromPath } from '@/utils/url';
+import { getBlogUrl } from '@/utils/url';
+import { format, parseISO } from 'date-fns';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
