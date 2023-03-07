@@ -12,10 +12,15 @@ export interface Props {
 const { title, description } = Astro.props as Props;
 
 const currentPath = new URL(Astro.request.url).pathname;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 const hoverStyle = 'hover:bg-slate-100 dark:hover:bg-neutral-800';
 const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
+
+function removeTrailingSlash(str: string) {
+  return str.replace(/\/+$/, '');
+}
+
+const canonicalUrl = removeTrailingSlash(new URL(Astro.url.pathname, Astro.site).toString());
 ---
 
 <!DOCTYPE html>
