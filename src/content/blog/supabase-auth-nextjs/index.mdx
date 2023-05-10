@@ -16,13 +16,13 @@ npm instal @supabase/auth-helpers-nextjs @supabase/auth-helpers-react @supabase/
 
 ## Supabase setup
 
-If you haven’t done so already, add the Supabase Anon key to your .env file
+If you haven’t done so already, add the Supabase Anon key to your .env file.
 
 ```tsx
 NEXT_PUBLIC_SUPABASE_ANON_KEY = YOUR_KEY;
 ```
 
-Then set up the Supabase Client in `src/pages/_app.tsx`
+Then set up the Supabase Client in `src/pages/_app.tsx`.
 
 ```tsx
 import { type AppType } from 'next/app';
@@ -53,7 +53,7 @@ export default trpc.withTRPC(MyApp);
 
 ## Sign Up
 
-Now we're ready to start with the authenticiation. Create a form where you handle the signup like this
+Now we're ready to start with the authenticiation. Create a form where you handle the signup like this.
 
 ```tsx
 const handleSignUp = async () => {
@@ -205,7 +205,7 @@ export const config = {
 
 ## Accessing user session on the server
 
-Create a helper like this
+Create a helper like this:
 
 ```tsx
 import type { GetServerSidePropsContext } from 'next';
