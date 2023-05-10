@@ -1,0 +1,284 @@
+---
+title: 'Supabase Authentication in Next.js Middleware with tRPC'
+pubDate: '2023-05-11'
+summary: 'The article explains how to implement Supabase authentication in Next.js using tRPC and Auth Helpers. It provides steps on how to set up Supabase, handle sign-up, sign-in, forgot password functionality, and how to protect routes using Next.js Edge Middleware.'
+---
+
+This blog post is a guide to using Supabase Authentication with tRPC in Next.js Middleware. It covers setting up Supabase Auth, creating a sign-up flow, signing in, handling forgotten passwords, and protecting routes.
+
+## Install dependencies
+
+We'll be using the dedicated Supabase Auth Helpers for Next.js and React, as well as the Supabase JS client.
+
+```tsx
+npm instal @supabase/auth-helpers-nextjs @supabase/auth-helpers-react @supabase/supabase-js
+```
+
+## Supabase setup
+
+If you haven’t done so already, add the Supabase Anon key to your .env file.
+
+```tsx
+NEXT_PUBLIC_SUPABASE_ANON_KEY = YOUR_KEY;
+```
+
+Then set up the Supabase Client in `src/pages/_app.tsx`.
+
+```tsx
+import { type AppType } from 'next/app';
+import { useState } from 'react';
+import { createBrowserSupabaseClient, type Session } from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+
+import { trpc } from '../utils/trpc';
+
+import '../styles/globals.css';
+
+type Props = {
+  initialSession: Session;
+};
+
+const MyApp: AppType<Props> = ({ Component, pageProps }) => {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+
+  return (
+    <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
+      <Component {...pageProps} />
+    </SessionContextProvider>
+  );
+};
+
+export default trpc.withTRPC(MyApp);
+```
+
+## Sign Up
+
+Now we're ready to start with the authenticiation. Create a form where you handle the signup like this.
+
+```tsx
+const handleSignUp = async () => {
+  const {
+    data: { session },
+    error,
+  } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: process.env.NEXT_PUBLIC_APP_URL + '/auth/success',
+    },
+  });
+
+  if (error) {
+    // handle the error however you like
+
+    return;
+  }
+
+  // if there is a session it means that we do not need to verify the email beforehand
+  if (session) {
+    router.push('/');
+  } else {
+    router.push('/auth/verify');
+  }
+};
+```
+
+After performing the signup we check if a session exists. If this is the case, we immediately redirect to our app. This is `/` in this case. If not, we show a special page `/auth/verify` that esentially says “Please check your email to verify your account so that you can use it”. **So you'll need to create that page.** The link in the email will lead to `/auth/verify`. This page shows a message that the user is now successfully verified and can log into the app.
+
+## Sign In
+
+Signing in is much simpler:
+
+```tsx
+const handleSignIn = async () => {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    // handle the error however you like
+    return;
+  }
+
+  if (data) router.push('/');
+};
+```
+
+We immediately redirect to the app in case the seemed successful.
+
+## Forgot password functionality
+
+We need another page to deal with forgotten passwords. On there is a form where the user can enter his email address to get a reset link. The handling looks like this:
+
+```tsx
+const handleForgot = async () => {
+  const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: process.env.NEXT_PUBLIC_APP_URL + '/auth/set',
+  });
+
+  if (error) {
+    // handle the error however you like
+    return;
+  }
+
+  // show feedback that reset email has been sent
+  if (data) setSuccessMessage('Password reset email sent');
+};
+```
+
+Then we need another form at the route `/auth/set` to actually set the new password. Here we get the token and then set the new password.
+
+```tsx
+const handleSubmit = async () => {
+  const hashArr = hash
+    .substring(1)
+    .split('&')
+    .map((param) => param.split('='));
+
+  let type;
+  let accessToken;
+  for (const [key, value] of hashArr) {
+    if (key === 'type') {
+      type = value;
+    } else if (key === 'access_token') {
+      accessToken = value;
+    }
+  }
+
+  if (type !== 'recovery' || !accessToken || typeof accessToken === 'object') {
+    // handle the error however you like
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.updateUser({
+    password: password,
+  });
+
+  if (error) {
+    // handle the error however you like
+    return;
+  }
+
+  // go to app
+  router.push('/');
+};
+```
+
+## Protecting routes
+
+For this we use a Next.js Edge Middleware. This is the fastest way to check authentication for every page.
+
+```tsx
+import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export async function middleware(req: NextRequest) {
+  // We need to create a response and hand it to the supabase client to be able to modify the response headers.
+  const res = NextResponse.next();
+
+  // Create authenticated Supabase Client.
+  const supabase = createMiddlewareSupabaseClient({ req, res });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  // Forward to protected route if we have a session
+  if (session) {
+    return res;
+  }
+
+  // Auth condition not met, redirect to login page.
+  const redirectUrl = req.nextUrl.clone();
+  redirectUrl.pathname = '/signin';
+  redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
+  return NextResponse.redirect(redirectUrl);
+}
+
+export const config = {
+  // list all the pages you want protected here
+  matcher: ['/', '/dashboard'],
+};
+```
+
+## Accessing user session on the server
+
+Create a helper like this:
+
+```tsx
+import type { GetServerSidePropsContext } from 'next';
+import { createServerSupabaseClient, type User } from '@supabase/auth-helpers-nextjs';
+
+export const getUserFromContext = async (ctx: GetServerSidePropsContext): Promise<User | null> => {
+  const supabaseServerClient = createServerSupabaseClient(ctx);
+
+  const {
+    data: { user },
+  } = await supabaseServerClient.auth.getUser();
+
+  return user;
+};
+```
+
+You can now use this helper anywhere, as long as you have access to the context. Usually this would be directly in the API route:
+
+```tsx
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getUserFromContext } from '@/utils/serverUser';
+
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  const user = await getUserFromContext(ctx);
+
+  // do anything you want with it
+};
+```
+
+If you’re using tRPC you can ingest it directly into your context:
+
+```tsx
+import type { inferAsyncReturnType } from '@trpc/server';
+import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
+
+import { prisma } from '@/server/db/client';
+import { getUserFromContext } from '@/utils/serverUser';
+
+export const createContext = async (opts: CreateNextContextOptions) => {
+  const { req, res } = opts;
+
+  const user = await getUserFromContext({ req, res });
+
+  return {
+    req,
+    res,
+    prisma,
+    user,
+  };
+};
+
+export type Context = inferAsyncReturnType<typeof createContext>;
+```
+
+Then you can access it in every query or mutation via `ctx.user`. Via this context, we can also create a protected procedure for routes that can only be called when authenticated.
+
+```tsx
+// Reusable middleware to ensure users are logged in
+const isAuthed = t.middleware(({ ctx, next }) => {
+  if (!ctx.user || ctx.user.role !== 'authenticated') {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+  return next({
+    ctx: {
+      ...ctx,
+      // infers that `user` is non-nullable to downstream resolvers
+      user: ctx.user,
+    },
+  });
+});
+
+// Protected procedure
+export const protectedProcedure = t.procedure.use(isAuthed);
+```
+
+Then just use this new procedure in your routers.
