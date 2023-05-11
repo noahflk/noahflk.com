@@ -17,7 +17,11 @@
   }
 </script>
 
-<button on:click={handleClick} class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800">
+<button
+  on:click={handleClick}
+  aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+  class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+>
   {#if theme === 'light'}
     <MoonIcon />
   {:else if theme === 'dark'}
