@@ -1,7 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-
-import Newsletter from '@/components/Newsletter.astro';
 import Layout from '@/layouts/Layout.astro';
 import type { Post } from '@/types/blog';
 import { getBlogUrl } from '@/utils/url';
@@ -30,7 +27,6 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
 
 <Layout title="Blog">
   <div class="space-y-6">
-    <Newsletter />
     <div class="py-6">
       <h2 class="text-4xl font-semibold">Blog posts</h2>
       <div class="space-y-8 pt-8">

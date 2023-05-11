@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 
-import Newsletter from '@/components/Newsletter.astro';
 import Layout from '@/layouts/Layout.astro';
 import type { Post } from '@/types/blog';
 import { getHumanizedDate } from '@/utils/date';
@@ -27,11 +26,8 @@ const { Content } = await entry.render();
   <div>
     <article class="prose lg:prose-lg dark:prose-invert">
       <h1>{entry.data.title}</h1>
-      <p>Published on {getHumanizedDate(entry.data.pubDate)}</p>
+      <p class="italic">Published on {getHumanizedDate(entry.data.pubDate)}</p>
       <Content />
     </article>
-    <div class="pt-12 pb-8">
-      <Newsletter />
-    </div>
   </div>
 </Layout>
