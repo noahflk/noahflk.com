@@ -24,7 +24,7 @@ const { Content } = await entry.render();
 
 <Layout title={entry.data.title} description={entry.data.summary}>
   <div>
-    <article class="prose lg:prose-lg dark:prose-invert">
+    <article class="prose lg:prose-lg dark:prose-invert pb-12">
       <h1>{entry.data.title}</h1>
       <p class="italic">Published on {getHumanizedDate(entry.data.pubDate)}</p>
       <Content />
