@@ -27,7 +27,4 @@ export default defineConfig({
       theme: 'poimandres',
     },
   },
-  experimental: {
-    contentCollections: true,
-  },
 });
