@@ -1,0 +1,213 @@
+---
+title: ' How I get better feedback on my PRs'
+pubDate: '2023-07-11'
+summary: 'This article is a guide that will show you how you can set yourself up to get better feedback on every pull request, and make your development and deployment workflow a lot faster.'
+---
+
+## Introduction
+
+This article is a guide that will show you how you can set yourself up to get better feedback on every pull request, and make your development and deployment workflow a lot faster.
+
+But before diving into **how** to make this happen, let's zoom out and understand why this is so important to virtually every developer out there.
+
+## The pain of deploying changes to production
+
+Deploying fixes and new features is a standard aspect of product development. But finding a way to ship these changes into production can be a time-consuming pain for everyone involved.
+
+Most of the time, the journey includes multiple steps and friction points:
+
+- Initial tests and code reviews
+- Merge a feature branch to the main branch once these reviews are complete
+- Deploy a new image to a shared staging environment
+- Run additional tests in staging
+- Push the changes to production
+
+If you are running your own infrastructure, this process can quickly become complicated and full of roadblocks: Staging servers that are blocked or out of sync. Multiple PRs opened for a single feature due to bugs found between each of these steps. And disorganized feedback from other team members that comes in at unpredictable points in the journey.
+
+Sure, the changes get merged eventually, but the above workflow challenges create a pretty high risk of unresolved bugs and deployment delays.
+
+## Preview Environments - A partial solution
+
+A partial solution to this problem has become increasingly popular in recent years - the use of ephemeral preview environments.
+
+Preview environments are production-like environments that are created per commit so that the branch in question can be easily tested before it gets merged.
+
+When introduced in a development and deployment flow, these environments enable faster reviews and more rapid feedback/approval cycles. Preview environments empower dev teams to shift the testing process to “pre-merge” where it's easier to identify bugs and avoid the single staging-server roadblock.
+
+But on their own, preview environments are only half the battle.
+
+They do a great job of enabling faster reviews for every commit, but they don't inherently help organize this feedback in an effective way. Every team member is left to the feedback mechanism of their choice, which can leave developers to sift through a disorganized mess of slack messages, emails, screenshots and shared documents.
+
+Furthermore, setting up these preview environment mechanisms is not always so easy. And the PaaS platforms that try to streamline the process require users to use their dedicated deployment pipeline, which isn't always possible - especially in larger companies.
+
+So to fully solve the deployment workflow dilemma, developers need a solution that is:
+
+- Easy to set up and maintain
+- Adaptable to cloud providers and CI pipelines
+- Able to effectively manage feedback from reviewers.
+
+## The solution
+
+And this brings us to the solution that I'd like to share with you - a collaborative preview environment solution that's easily created using two complementary tools: [Pulumi](https://www.pulumi.com/) and [Livecycle](https://livecycle.io/).
+
+Pulumi allows us to programmatically configure our infrastructure using the programming languages we already know. In our case, this will be TypeScript. They support all popular cloud providers, such as AWS or Google Cloud. For this tutorial, we'll be using Google Cloud. There are many advantages to programmatically configuring your infrastructure. But the biggest one is: you write the config once and you can apply it as many times as you like - all with one command. And without interacting with a confusing cloud provider UI.
+
+Pulumi supports the creation of preview environments on every pull request. They call these environments “Review Stacks” and this capability is available out of the box. With Review Stacks, Pulumi automatically provisions and deploys an ephemeral environment with our changes on our cloud provider.
+
+And this is where Livecycle comes in. Livecyle adds a collaborative layer to each environment that is created that allows all reviewers to leave rich feedback in the context of the PR. So instead of sending confusing annotated screenshots in Slack messages or being limited to GitHub comments, Livecycle lets everyone overlay feedback directly into the existing preview environment - all in your browser, where it can be addressed quickly.
+
+In order to see the Pulumi + Livecycle combination in action, we'll first set up a simple static web application. Since we're focusing on preview environments and collaboration instead of elaborate cloud deployments, we'll use a basic HTML page as an example. Using Pulumi configuration files written in Typescript, we'll deploy that site to Google Cloud. All without touching the UI. Afterwards, we'll set up preview environments through Pulumi Review Stacks for all our Pull Requests on the project in GitHub. Then, we'll hook it up to Livecycle to enable collaborative feedback in our preview environments.
+
+So buckle up, because here we go!
+
+## Setup
+
+Before we can get started, we need to prepare a few things. First, we need to Sign Up for a [Pulumi Cloud Account](https://app.pulumi.com/signup). Then, install the [Pulumi CLI](https://www.pulumi.com/docs/install/). We strongly recommend using Homebrew on Mac for that. When you first run the CLI, you will be asked to link it with your Pulumi account. It will guide you through the process step-by-step. Also, ensure you have Node.js 14 or higher installed.
+
+Now, we need to Sign Up for a [Google Cloud](https://cloud.google.com/) account. Afterwards, create a New Project called “Pulumi Livecycle Demo”.
+
+<Image src={import('./gcloud-new-project.png')} alt="Google Cloud New Project Modal" />
+
+If your account is new, you might have to link a credit card under the “Billing” tab. Don’t worry, you should receive a free starter credit that is more than enough to run this project for months. Observe the ID `pulumi-livecycle-demo` on the dashboard after creating the project. Your ID might be different. But you will need it later on. So keep it handy.
+
+<Image src={import('./gcloud-project-info.png')} alt="Google Cloud Project Info" />
+
+For Pulumi to interact with Google Cloud from our local machine, we need to set up the Google Cloud CLI. This [guide](https://cloud.google.com/sdk/docs/install) by Google illustrates how to install and set up the CLI on any platform. With that, we're ready to write our first Pulumi configuration to deploy our site.
+
+## Deploying the site
+
+Go to your terminal and create a new folder called `pulumi-livecycle-demo`. In there, run the following command to create a Pulumi project based on the official static website template for Google Cloud. It will ask you a few questions. Pick the default answer wherever available. And enter the project ID from Google Cloud we saw earlier. This is necessary so that Pulumi knows where to deploy the project to.
+
+```bash
+pulumi new static-website-gcp-typescript
+```
+
+Look around the project files. The `www/` folder contains our HTML files that will be deployed. The `index.ts` file contains the Pulumi configuration to deploy our files to the web. This is the main part of the configuration:
+
+```typescript
+// Import the program's configuration settings.
+const config = new pulumi.Config();
+const path = config.get('path') || './www';
+const indexDocument = config.get('indexDocument') || 'index.html';
+const errorDocument = config.get('errorDocument') || 'error.html';
+
+// Create a storage bucket and configure it as a website.
+const bucket = new gcp.storage.Bucket('bucket', {
+  location: 'US',
+  website: {
+    mainPageSuffix: indexDocument,
+    notFoundPage: errorDocument,
+  },
+});
+```
+
+We define some configuration variables and then set up a new Bucket to store the web files in. In the remainder of the file, we make this content available to everything on the web like a common web server would. Now, all that's left to do is run `pulumi up` in this directory to deploy the project. You can watch how all services get created. Answer “Yes” to “Do you want to perform this update?”. Afterwards, you will see a URL where the project has been deployed to.
+
+<Image src={import('./deployed-site.png')} alt="Deployed Website on Google Cloud" />
+
+## Setting up Automatic Deploys and Preview Environments
+
+So far we've just deployed the website from our local machine. Now we want to set up a proper development workflow. Where code gets automatically deployed if you push to the main branch of your GitHub repository. And of course, we also want previews on our pull requests.
+
+First of all, we need to add the repository we've been working on to GitHub. This tutorial assumes familiarity with GitHub. If you're not sure how to do this, check out this [tutorial](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github). Now you should have the project deployed to GitHub. But nothing happens yet when we push. What we want to happen is that Pulumi triggers whenever we push code to main or open a new pull request. Pulumi Cloud can handle this out of the box.
+
+In order for Pulumi to access our repository, we need to install their GitHub app. We can do that by visiting [this link](https://github.com/apps/pulumi).
+
+<Image src={import('./install-pulumi-gh-app.png')} alt="Install Pulumi GitHub App" />
+
+With that done, go to the Pulumi dashboard. On there, select our `pulumi-livecycle-demo/dev` stack.
+
+<Image src={import('./pulumi-dashboard.png')} alt="Pulumi Dashboard with our project listed" />
+
+Under “Settings” and “Deploy” select your repository and enable all “GitHub settings” switches according to the image below. This will tell Pulumi to deploy changes to main and create preview environments for pull requests.
+
+<Image src={import('./pulumi-dashboard-settings.png')} alt="Pulumi Dashboard Project Settings" />
+
+However, this won't work until we tell Pulumi about the Google Cloud credentials. Go to the project dashboard in the Google Cloud Console. Open the menu, select “IAM and admin” and “Service accounts”. Press “Create Service Account” and choose a name. Then click “Done”.
+
+<Image src={import('./google-cloud-account.png')} alt="Google Cloud Service Account creation" />
+
+Afterward, you should see your newly created service account in the table. Click the action button and select “Manage keys”. In there, click “Add Key”, “Create new key”, and “JSON”. Download the created key. Go back to your Pulumi Stack settings and add the JSON key (in plaintext form) under the name `GCLOUD_KEYFILE_JSON` in the “Environments variables” section. In addition, create a new variable named `PROJECT_ID` and fill in the Project ID from the Google Dashboard. Your environment variables should now look like this:
+
+<Image src={import('./pulumi-env.png')} alt="Pulumi Environment Variable settings" />
+
+With this, we're ready to open a new pull request on GitHub! If all goes well, any changes you make will now automatically get deployed. If it fails, carefully read the error message. Chances are that the keys aren't quite correctly configured. So carefully check if you pasted all the right keys.
+
+Try out the deployments by pushing changes made to the `www/index.html` file. On your pull request you will see a comment from Pulumi with the URL of the deployed preview.
+
+<Image src={import('./github-pulumi-comment.png')} alt="GitHub Pulumi Deploy Comment" />
+
+## Pull Request collaboration with Livecycle
+
+Now we get automatically created environments for every pull request. Using Livecycle we will now add collaboration to those environments. Thankfully, Livecycle is very simple to set up. So this won't take long.
+
+First, go to the [Livecycle](https://livecycle.io/) site, log in and click “Add a repository”. Then the wizard will guide you through the process of connecting Livecycle to your repository. Select our Pulumi Demo repository. In the next step, select “I already have a preview environment”.
+
+Now it will tell us to create a new branch and install the SDK. Do this. We'll add the SDK like this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world! 👋</h1>
+    <p>Deployed with 💜 by new <a href="https://pulumi.com/">Pulumi</a>.</p>
+    <script src="https://unpkg.com/@livecycle/sdk@stable/dist/browser/index.js"></script>
+    <script>
+      LivecycleSdk.init().catch(console.error);
+    </script>
+  </body>
+</html>
+```
+
+Now there's only one step left: telling Livecycle the URL of our preview deployment. This needs to be done on every pull request. In order to automate it, we'll be using GitHub actions. In your repository, create a file at `.github/workflows/action.yml` with this content:
+
+```yaml
+name: Livecycle
+
+on:
+  pull_request:
+
+jobs:
+  preview:
+    name: Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for build to succeed
+        uses: fountainhead/action-wait-for-check@v1.1.0
+        id: wait-for-build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: pulumi
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: link environment to livecycle
+        if: steps.wait-for-build.outputs.conclusion == 'success'
+        env:
+          LIVECYCLE_API_KEY: ${{ secrets.LC_API_KEY }}
+          PREVIEW_URL: ${{ steps.preview.outputs.value }}
+        run: npx @livecycle/cli link --url=$PREVIEW_URL --from-git=. --api-key=$LIVECYCLE_API_KEY
+```
+
+We have to configure the `LC_API_KEY` in the GitHub settings. Go to “Settings”, “Secrets and variables”, and “Actions”. Select “New repository secret”. Add the key from the Livecycle site. Now you're ready to push the changes and see if it all works!
+
+Now we get an URL to make our reviews for each Pull Request. Using the Livecycle tools that are now included in every environment, team members can write comments, point out specific things with annotated screenshots and even record their sessions from within the PR itself. As you fix issues, you can mark them as resolved. And if something is unclear, you can ask questions directly on the issue. The collaboration platform where your team can place their feedback looks as follows:
+
+<Image src={import('./livecycle-review.png')} alt="Livecycle Review Dashboard showing our Website" />
+
+You will also see the Livecycle feedback conveniently in the GitHub Pull Request comments:
+
+<Image src={import('./github-livecycle-comment.png')} alt="GitHub Livecycle Comment" />
+
+## Wrapping Up
+
+The development workflow we've explored in this article offers several advantages. Using Pulumi is a great way to programmatically provision your infrastructure. This eliminates the need for manual interaction with cloud provider interfaces. Adding Livecycle to the mix enables collaborative feedback within preview environments, simplifying the process of gathering and incorporating user feedback during development.
+
+And this combination is a powerful one for any product team. It streamlines the process of creating previews and gathering clear, actionable feedback from everyone on the team. By using Livecycle to collect feedback directly within the preview environment, teams eliminate the need for external tools or communication channels.
+
+Upgrading your workflows with collaborative preview environments is sure to promote efficient collaboration and facilitate quicker iterations and product improvements.
+
+I encourage you to try it out and see for yourself!
