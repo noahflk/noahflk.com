@@ -16,7 +16,7 @@ Thankfully, I had equipped all my pages with a canonical link. The link always p
 
 ## Fixing the issue
 
-The solution is to redirect all URLs without trailing slashes to the same URL with trailing slashes. This can be done with a simple redirect in the `vercel.json` config file in the project root.
+The solution is to redirect all URLs with trailing slashes to the same URL without a trailing slash. This can be done with a simple redirect in the `vercel.json` config file in the project root.
 
 ```js
 {
