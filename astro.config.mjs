@@ -13,9 +13,7 @@ export default defineConfig({
   integrations: [
     sitemap(),
     tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
+      applyBaseStyles: false,
     }),
     prefetch(),
     image(),
