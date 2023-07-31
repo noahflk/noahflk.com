@@ -18,8 +18,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0
   '@astrojs/sitemap':
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^2.0.0
+    version: 2.0.0
   '@astrojs/svelte':
     specifier: ^3.0.0
     version: 3.0.0(astro@2.8.0)(svelte@4.0.0)(typescript@5.1.6)(vite@4.4.4)
@@ -205,11 +205,11 @@ packages:
       fast-xml-parser: 4.0.12
     dev: false
 
-  /@astrojs/sitemap@1.0.0:
-    resolution: {integrity: sha512-42GxuF5FP7RaKXZrwGLBLOX3hPv+Wl7ExJC43O0J5e34ojJkLeKf7QfwN1UwrJlqH0Ywi0Fm4/xGe482G09+wg==}
+  /@astrojs/sitemap@2.0.0:
+    resolution: {integrity: sha512-hcemuFigv05sdXNiw0U23VO+6Duj9nq9xhINw4ZPWAQEhS/F4EiNvd9IUXb4XJ7pG93MWAnQKF9lP8EtwP6paA==}
     dependencies:
       sitemap: 7.1.1
-      zod: 3.19.1
+      zod: 3.21.4
     dev: false
 
   /@astrojs/svelte@3.0.0(astro@2.8.0)(svelte@4.0.0)(typescript@5.1.6)(vite@4.4.4):
@@ -3960,10 +3960,6 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
-
-  /zod@3.19.1:
-    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
-    dev: false
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
