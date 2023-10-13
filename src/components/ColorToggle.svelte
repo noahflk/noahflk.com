@@ -2,7 +2,7 @@
   import MoonIcon from './icons/MoonIcon.svelte';
   import SunIcon from './icons/SunIcon.svelte';
 
-  let theme = localStorage.getItem('theme');
+  let theme = typeof localStorage !== 'undefined' && localStorage.getItem('theme');
 
   function handleClick() {
     theme = theme === 'light' ? 'dark' : 'light';
