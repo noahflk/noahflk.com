@@ -1,9 +1,11 @@
 ---
 import { Image } from 'astro:assets';
+import { ViewTransitions } from 'astro:transitions';
 
 import ColorToggle from '@/components/ColorToggle.svelte';
-import '@/styles/base.css';
 import { classNames } from '@/utils/styling';
+
+import '@/styles/base.css';
 export interface Props {
   title?: string;
   description?: string;
@@ -48,6 +50,8 @@ const canonicalUrl = removeTrailingSlash(new URL(Astro.url.pathname, Astro.site)
     <meta property="og:image" content="http://noahflk.com/images/share.png" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
+
+    <ViewTransitions />
 
     <!-- Analytics -->
     <script defer data-domain="noahflk.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
