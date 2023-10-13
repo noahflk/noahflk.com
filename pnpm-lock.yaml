@@ -12,8 +12,8 @@ dependencies:
     specifier: ^0.4.0
     version: 0.4.0
   '@astrojs/rss':
-    specifier: ^2.0.0
-    version: 2.0.0
+    specifier: ^3.0.0
+    version: 3.0.0
   '@astrojs/sitemap':
     specifier: ^3.0.0
     version: 3.0.0
@@ -141,10 +141,11 @@ packages:
     dependencies:
       prismjs: 1.29.0
 
-  /@astrojs/rss@2.0.0:
-    resolution: {integrity: sha512-qXsmyq2HhnKRA85US6GLelT47VLhdtS0bNq88umqfB2uneB9vWHSLnOJjhN9rv0mUSQjsFYytF4IEznfmNnpkQ==}
+  /@astrojs/rss@3.0.0:
+    resolution: {integrity: sha512-PMX8iqByk9gtOrusikten/oF5uHjOCZigL6RuXFBUu+xtdKQxXzfIohJ99V2haA4FJjVDyibDTGzXR81POBMxQ==}
     dependencies:
-      fast-xml-parser: 4.0.12
+      fast-xml-parser: 4.3.2
+      kleur: 4.1.5
     dev: false
 
   /@astrojs/sitemap@3.0.0:
@@ -1706,8 +1707,8 @@ packages:
       merge2: 1.4.1
       micromatch: 4.0.5
 
-  /fast-xml-parser@4.0.12:
-    resolution: {integrity: sha512-/Nmo3823Rfx7UTJosQNz6hBVbszfv1Unb7A4iNJZhvCGCgtIHv/uODmrYIH8vc05+XKZ4hNIOv6SlBejvJgATw==}
+  /fast-xml-parser@4.3.2:
+    resolution: {integrity: sha512-rmrXUXwbJedoXkStenj1kkljNF7ugn5ZjR9FJcwmCfcCbtOMDghPajbc+Tck6vE6F5XsDmx+Pr2le9fw8+pXBg==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
