@@ -4,9 +4,9 @@ export interface Props {
   alt: string;
 }
 
-import { Image } from '@astrojs/image/components';
+import { Image as AstroImage } from 'astro:assets';
 
 const { src, alt } = Astro.props;
 ---
 
-<Image src={src} alt={alt} class="rounded" />
+<AstroImage src={src} alt={alt} class="rounded" />
