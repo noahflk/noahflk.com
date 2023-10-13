@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import prefetch from '@astrojs/prefetch';
-import image from '@astrojs/image';
 import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
 
@@ -16,7 +15,6 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     prefetch(),
-    image(),
     mdx(),
     svelte(),
   ],
