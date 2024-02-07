@@ -21,16 +21,18 @@ function removeTrailingSlash(str: string) {
 }
 
 const canonicalUrl = removeTrailingSlash(new URL(Astro.url.pathname, Astro.site).toString());
+
+const pageTitle = title ? title + ' - noahflk' : 'noahflk';
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title && title + ' - '}@noahflk</title>
+    <title>{pageTitle}</title>
 
     <!-- SEO Stuff -->
     <link rel="canonical" href={canonicalUrl} />
