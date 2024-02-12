@@ -6,9 +6,9 @@ This is the repository for my personal website and blog https://noahflk.com buil
 
 ```bash
 # Install the dependencies
-npm install
+pnpm install
 # Run the development server
-npm run dev
+pnpm run dev
 ```
 
 ## Technologies
