@@ -2,12 +2,12 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/umami/script.js",
-      "destination": "https://eu.umami.is/script.js"
+      "source": "/pirsch/script.js",
+      "destination": "https://api.pirsch.io/pirsch.js"
   },
   {
-      "source": "/umami/api/send",
-      "destination": "https://eu.umami.is/api/send"
+      "source": "/pirsch/hit",
+      "destination": "https://api.pirsch.io/hit"
   }
   ]
 }
