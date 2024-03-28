@@ -1,9 +1,11 @@
 ---
 import { Image } from 'astro:assets';
+import { ViewTransitions } from 'astro:transitions';
 
 import ColorToggle from '@/components/ColorToggle.svelte';
-import '@/styles/base.css';
 import { classNames } from '@/utils/styling';
+
+import '@/styles/base.css';
 export interface Props {
   title?: string;
   description?: string;
@@ -50,6 +52,8 @@ const pageTitle = title ? title + ' - noahflk' : 'noahflk';
     <meta property="og:image" content="http://noahflk.com/images/share.png" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
+
+    <ViewTransitions />
 
     <!-- Analytics -->
     <script defer src="/pirsch/script.js" id="pirschjs" data-code="PG4fKNSDop9m5NS2JgQBEPjtUEt6rKVu"></script>
