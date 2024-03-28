@@ -27,26 +27,24 @@ const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a
 
 <Layout title="Blog">
   <div class="space-y-6">
-    <div class="py-6">
-      <h2 class="text-4xl font-semibold">Blog posts</h2>
-      <div class="space-y-8 pt-8">
-        {
-          sortedYears.map((year) => (
-            <div>
-              <h3 class="text-xl font-semibold">{year}</h3>
-              <ul class="py-2 space-y-2">
-                {postsByYear[year].map((post) => (
-                  <li>
-                    <a class="text-lg hover:underline" href={getBlogUrl(post)}>
-                      {post.data.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
+    <h1 class="text-3xl font-bold md:text-5xl">Blog posts</h1>
+    <div class="space-y-8 pt-8">
+      {
+        sortedYears.map((year) => (
+          <div>
+            <h3 class="text-xl font-semibold">{year}</h3>
+            <ul class="py-2 space-y-2">
+              {postsByYear[year].map((post) => (
+                <li>
+                  <a class="text-lg hover:underline" href={getBlogUrl(post)}>
+                    {post.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
   </div>
 </Layout>
