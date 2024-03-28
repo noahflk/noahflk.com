@@ -5,13 +5,14 @@ import { getBlogUrl } from '@/utils/url';
 import { getSortedPosts } from '@/utils/posts';
 
 const sortedPosts = await getSortedPosts();
+const filteredPosts = sortedPosts.filter((p) => !p.hidden);
 
 // type for object with year as key and array of posts as value
 type PostsByYear = {
   [key: string]: Post[];
 };
 
-const postsByYear = sortedPosts.reduce((acc: PostsByYear, post) => {
+const postsByYear = filteredPosts.reduce((acc: PostsByYear, post) => {
   const year = new Date(post.data.pubDate).getFullYear();
 
   if (!acc[year]) {
