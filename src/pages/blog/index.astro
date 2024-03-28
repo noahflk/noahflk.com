@@ -5,7 +5,7 @@ import { getBlogUrl } from '@/utils/url';
 import { getSortedPosts } from '@/utils/posts';
 
 const sortedPosts = await getSortedPosts();
-const filteredPosts = sortedPosts.filter((p) => !p.hidden);
+const filteredPosts = sortedPosts.filter((p) => p.hidden !== true);
 
 // type for object with year as key and array of posts as value
 type PostsByYear = {

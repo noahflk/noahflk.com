@@ -7,7 +7,7 @@ import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
 import Layout from '@/layouts/Layout.astro';
 import { getSortedPosts } from '@/utils/posts';
 
-const sortedRecentPosts = (await getSortedPosts()).slice(0, 3).filter((p) => !p.hidden);
+const sortedRecentPosts = (await getSortedPosts()).slice(0, 3).filter((p) => p.hidden !== true);
 ---
 
 <Layout>
