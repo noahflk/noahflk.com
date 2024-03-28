@@ -1,0 +1,85 @@
+---
+title: 'The best free database providers in 2024'
+pubDate: '2024-03-27'
+summary: 'Dive into the best free database options of 2024, tailored for indie developers and small teams on the hunt for reliable, scalable solutions without breaking the bank, featuring platforms like Supabase, Neon, and others.'
+---
+
+import Image from '@/components/Image.astro';
+
+A low initial cost is important for personal projects or indie hackers seeking product validation. It is hard to justify paying upwards of $20 a month just for your database, when you barely have any traffic. The other important factor is how price-effective a database can scale with you. A free tier is worth nothing when you face the choice between a huge bill or daunting provider migration as soon as your app gets any kind of traction. If you are planning to host more than a simple site project, taking the maturity of a platform into account is very important. The database is arguably the most critical link in your infrastructure. I wouldn’t want to rely on providers without a track record for apps with paid users. However, I’m more than happy to try out more exotic solutions on side projects.
+
+## Supabase - the All-in-One Solution
+
+<Image src={import('./supabase.png')} alt="Supabase dashboard" />
+
+Supabase is a platform built on top of PostgreSQL. You can look at it as an interface for your database. So you can browse your data, look at your metrics and adjust your database settings. All in a modern user interface. Without ever touching the command line of your database. 
+
+But there’s much more to Supabase. Calling it a fancy interface on top of PostgreSQL doesn’t do it justice. It can do much more than that. It comes with built-in authentication, storage, edge functions, just to name a few. In addition, Supabase provides a neat set of libraries so you can interface with your database from anywhere. WIthout the need for a dedicated backend. A while ago I wrote a whole article about Supabase. If you want to know more, head to [The good parts of Supabase](https://noahflk.com/blog/supabase-the-good-parts).
+
+The free tier includes:
+
+- Unlimited requests
+- 50,000 monthly active users
+- 500 MB database space
+- 5 GB bandwidth
+- 1 GB file storage
+
+If this is not enough for you, the next tier up is the $25 a month Pro plan, which can handle most production loads. The 100,000 included monthly active users for authentication on the Pro plan are remarkable. With Auth0 that would put you squarely into the enterprise tier, costing you thousands of dollars a month.
+
+## Neon - Serverless Postgres
+
+<Image src={import('./neon.jpg')} alt="Neon" />
+
+Neon is a serverless implementation of Postgres. This means, your database will auto-scale as needed. Even though Neon is serverless, they do not artificially limit the number of allowed requests. You just have a ressource ceiling depending on your tier. Their free tier offers:
+
+- Unlimited Databases
+- Unlimited requests
+- 500 MB database space
+- Limited compute performance (0.25 vCPU, 1 GB RAM)
+
+If you need more than this, there is a Launch plan priced at $19 a month. This will give you 10 GiB of storage and much more compute power, if needed.
+
+What makes Neon special is their branching feature. You can branch your production database to apply changes, before merging it back in. For example, branching allows you to have an [independent preview database](https://neon.tech/docs/guides/vercel) for every Pull Request.
+
+**A note on Vercel Postgres**
+
+Vercel Postgres is powered by Neon, so they are essentially the same product. The pricing model is just a bit different. But there is still a free tier. And as is common with Vercel, heavy usage tends to get expensive. If you are a Vercel customer, I recommend looking into Vercel Postgres. You won’t find a simpler database to integrate into an app hosted on Vercel.
+
+## Turso - SQLite for Production
+
+<Image src={import('./turso.png')} alt="Turso" />
+
+Turso is based on SQLite. Contrary to what you might think, SQLite is very capable and can most likely face any production loads you have. Plus, it offers a much better local dev experience than server-based databases such as PostgreSQL. With Turso, you do not need to connect to the server when you develop locally. Instead, you can simply have a local instance of your database on disk. So you can develop without the internet and no latency.
+
+Since Turso is based on SQLite (technically libsql), you won’t be able to connect with database clients made for PostgreSQL or MySQL. Turso has their own library for various programming languages. However, if you’re using TypeScript I highly recommend the [Drizzle Turso](https://orm.drizzle.team/learn/tutorials/drizzle-with-turso) integration. If you’re working in an unsupported language, you can use Tursos direct HTTP access.
+
+The most interesting feature of Turso for me is their edge support. You can easily deploy replicas all over the world, so your data is always close to your user. Keep in mind, this only makes sense if your backend runtime is also on the edge.
+
+The free tier offers:
+
+- 9 GB of storage
+- 500 databases
+- 3 locations (replicas)
+- 1 billion reads
+- 25 million writes
+
+If you exceed storage or read/write you have the option to pay for usage instead of upgrading to the $29 a month Scaler plan. So you are not forced to commit to a high monthly fix-cost just because you slightly exceed some limit of the free tier.
+
+## Xata - the Data Platform
+
+<Image src={import('./xata.png')} alt="Xata" />
+
+
+Xata is similar to Neon, as both offer a serverless Postgres solution with features such as branching and read replicas. In addition, both platforms have their own clients to access your database. Previously, you could not connect to Xata through the regular Postgres interface. As of right now, this is available as a beta feature.
+
+Xata’s free tier includes 15 GB of storage. Similar to Neon, it does not explicitly limit your requests. However, you can assume that the performance of the free tier does not support very high loads. If you need more than that, you can upgrade to the usage-based Pro plan. It has a minimum charge of $20 a month, all of which goes to usage.
+
+So what makes Xata worth mentioning here in the first place, if it’s virtually the same as Neon? They offer a lot of features on top of just being another Postgres database: file storage, full-text search and vector embeddings. If you want all of this at the same provider, Xata is the way to go. 
+
+The PlanetScale discussion
+Perhaps you’ve wondered why Planetscale hasn’t been mentioned so far. They’ve recently [removed their free tier](https://planetscale.com/blog/planetscale-forever). I fully understand that decision from a business perspective. They have big companies such as MyFitnessPal as customers. So gradually their target audience has shifted away from small businesses and indie hackers. Their cheapest plan now starts at $39 a month. And their website now looks very enterprise-y. Planetscale’s competitor are other enterprise solutions such as AWS RDS. The question in this realm isn’t paying $100 more or less a month for your DB. If you can eliminate the work of 2 full time staff by moving from one provider to another, you’ll happily pay thousands a month to your database provider. You’ll still come out ahead. Nothing is more expensive than human capital.
+
+## Conclusion
+
+In wrapping up our dive into the best free hosted databases of 2024, it's pretty clear: there's no one-size-fits-all solution. Each option we explored brings something special to the table. So it all depends on your individual needs.
+If you need an all-encompassing platform, Supabase is your go-to. Neon and Xata are more traditional hosted Postgres solutions, but with cool features like branching. And Turso brings SQLite to production applications with excellent edge-support.
