@@ -14,10 +14,10 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    prefetch(),
     mdx(),
     svelte(),
   ],
+  prefetch: true,
   markdown: {
     shikiConfig: {
       theme: 'poimandres',
