@@ -14,13 +14,20 @@
     "astro": "4.4.9"
   },
   "dependencies": {
+    "@astrojs/markdoc": "^0.9.5",
     "@astrojs/mdx": "^1.1.5",
-    "@astrojs/prefetch": "^0.4.0",
+    "@astrojs/react": "^3.1.1",
     "@astrojs/rss": "^4.0.0",
     "@astrojs/sitemap": "^3.0.0",
     "@astrojs/svelte": "^5.0.0",
     "@astrojs/tailwind": "^5.0.0",
+    "@keystatic/astro": "^5.0.0",
+    "@keystatic/core": "^0.5.11",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
     "date-fns": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "svelte": "^4.0.0",
     "tailwindcss": "^3.0.24"
   }

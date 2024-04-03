@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import prefetch from '@astrojs/prefetch';
 import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
+import react from '@astrojs/react';
+import markdoc from '@astrojs/markdoc';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,6 +17,9 @@ export default defineConfig({
     }),
     mdx(),
     svelte(),
+    react(),
+    markdoc(),
+    keystatic(),
   ],
   prefetch: true,
   markdown: {
@@ -23,4 +27,5 @@ export default defineConfig({
       theme: 'poimandres',
     },
   },
+  output: 'hybrid',
 });
