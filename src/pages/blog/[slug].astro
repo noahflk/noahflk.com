@@ -1,0 +1,40 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+
+import Layout from '@/layouts/Layout.astro';
+import { getHumanizedDate } from '@/utils/date';
+
+const { slug } = Astro.params;
+
+if (!slug) throw new Error('Slug not found');
+
+const post = await getEntry('posts', slug);
+const blog = await getEntry('blog', slug);
+
+console.log(post, 'jkdfsklsdjfsdflkj');
+
+if (!post && !blog) throw new Error('No post found for this slug');
+
+const entry = post || blog;
+
+const { Content } = await entry.render();
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const blog = await getCollection('blog');
+
+  const allPosts = [...posts, ...blog];
+
+  return allPosts.map((post) => ({ params: { slug: post.slug } }));
+}
+---
+
+<Layout title={entry.data.title} description={entry.data.summary}>
+  <div>
+    <article class="prose lg:prose-lg dark:prose-invert pb-12">
+      <h1>{entry.data.title}</h1>
+      <p class="italic">Published on {getHumanizedDate(entry.data.pubDate)}</p>
+      <Content />
+    </article>
+  </div>
+</Layout>
