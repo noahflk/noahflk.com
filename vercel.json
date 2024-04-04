@@ -2,11 +2,11 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/pirsch/script.js",
+      "source": "/p/script.js",
       "destination": "https://api.pirsch.io/pirsch.js"
   },
   {
-      "source": "/pirsch/hit",
+      "source": "/p/hit",
       "destination": "https://api.pirsch.io/hit"
   }
   ]
