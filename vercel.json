@@ -1,13 +1,3 @@
 {
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/p/script.js",
-      "destination": "https://api.pirsch.io/pirsch.js"
-    },
-    {
-        "source": "/p/hit",
-        "destination": "https://api.pirsch.io/hit"
-    }
-  ]
+  "trailingSlash": false
 }
