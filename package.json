@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",
-    "astro": "4.5.16"
+    "astro": "4.6.1"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.5",
