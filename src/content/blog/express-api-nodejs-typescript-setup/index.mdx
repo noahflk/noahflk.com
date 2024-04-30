@@ -4,8 +4,7 @@ pubDate: '2024-04-30'
 summary: 'Dive into the best free database options of 2024, tailored for indie developers and small teams on the hunt for reliable, scalable solutions without breaking the bank, featuring platforms like Supabase, Neon, and others.'
 ---
 
-
-The world of Node.js servers in 2024 is a confusing one: ESM, CommonJS, TypeScript, transpiling, tsconfig, bundlers and so on. The list never ends. Even though all you want to do is set up a simple API. Unlike in the front-end world, there are no first-party CLIs that automatically bootstrap a fully configured codebase for you. Instead, you have to do it all yourself. I recently went through this myself and it took way longer than expected. So here I will bew showing you the practice steps I did to get an Express.js API with TypeScript.
+The world of Node.js servers in 2024 is a confusing one: ESM, CommonJS, TypeScript, transpiling, tsconfig, bundlers and so on. The list never ends. Even though all you want to do is set up a simple API. Unlike in the front-end world, there are no first-party CLIs that automatically bootstrap a fully configured codebase for you. Instead, you have to do it all yourself. I recently went through this myself and it took way longer than expected. So here I will be showing you the practice steps I did to get an Express.js API with TypeScript.
 
 ## Prerequisites
 All you need to get started is having Node.js setup in your terminal. We will be using Node v20. Our package manager of choice will be npm, which comes pre-installed with Node. But you can use any other package manager you like.
@@ -46,7 +45,8 @@ Install the dependencies into your project:
 npm install express cors dotenv
 ```
 
-Now create a new folder called `/src` and add a file called `server.ts` inside this folder. The file should look like this. It sets up express, cors and a sample response to show the server is up and running.
+Now create a new folder called `/src` and add a file called `server.ts` inside this folder. The file should look like this. It sets up Express, Cors and a sample response to show the server is up and running.
+
 
 ```ts
 import cors from 'cors';
@@ -74,7 +74,7 @@ So far, we can’t do anything with this. We didn’t define a start command and
 npm i -D typescript @types/node @types/express @types/cors tsx rimraf tsc-alias
 ```
 
-Besides TypeScript ittsself and the necessary typings for Node, Express and Cors we’ve also installed tsx. It’s a tool that helps us easily run our server in development. It can parse TypeScript files and automatically restarts the server whenever we make any changes. We’ve also installed `rimraf` and `tsc-alias`. These will help us later on, when we need to build our code for production.
+Besides TypeScript itself and the necessary typings for Node, Express and Cors we’ve also installed tsx. It’s a tool that helps us easily run our server in development. It can parse TypeScript files and automatically restarts the server whenever we make any changes. We’ve also installed `rimraf` and `tsc-alias`. These will help us later on, when we need to build our code for production.
 
 Let’s get to configuring all of this. First off, we need a config for TypeScript. Run this command:
 
@@ -115,7 +115,7 @@ Now we have a `tsconfig.json` file in our project that we can edit. Paste this i
 ```
 
 Besides some default build-stuff, we have added additional configuration items:
-- An import alias so files can be imported like this @/utils/file 
+- An import alias so files can be imported like this @/utils/file
 - Configuring the tsc-alias tool so we can handle import aliases and won’t have to use .js extensions when importing files
 
 ## Making it run
@@ -131,10 +131,13 @@ Now that TypeScript is configured, we need to set up the scripts to run the serv
 ```
 
 Here’s a quick explanation of what each script does:
-- yype-check: checks if all TypeScript types in your project are valid
+
+- type-check: checks if all TypeScript types in your project are valid
 - build: builds the project for production by first deleting any existing builds, then creating a new build and at the end making sure Import statements work properly
 - start: Start the production build
 - dev: Run our project in development mode.
+
+We also need to tell Node.js that our project uses ES Modules. This is what allows you to write import instead of require.
 
 
 We also need to tell Node.js that our project uses ES Modules. This is what allows you to write import instead of require.
@@ -143,10 +146,11 @@ We also need to tell Node.js that our project uses ES Modules. This is what allo
 "type": "module",
 ```
 
-You can run any of these scripts with `npm run SCRIPT`. Now we’re ready to run it in development mode using `npm run dev`. You should see feedback in your console. Visit `http://localhost:3000` to check if everything is working.
+You can run any of these scripts with `npm run SCRIPT`. Now we’re ready to run it in development mode using npm run dev. You should see feedback in your console. Visit `http://localhost:3000` to check if everything is working.
 
 ## Express API endpoints
-Now that we have a running server, we can set up an API endpoint. For this we’re going to be using two concepts: routers and controllers. A router will handle a certain set of sub-routes. We will create a router that handles all traffic coming to /api. Create a new file in the src directory called `router.ts`. Add this content:
+
+Now that we have a running server, we can set up an API endpoint. For this we’re going to be using two concepts: routers and controllers. A router will handle a certain set of sub-routes. We will create a router that handles all traffic coming to `/api`. Create a new file in the src directory called `router.ts`. Add this content:
 
 ```ts
 import express from 'express';
@@ -216,6 +220,8 @@ export const getAnotherTest = (req: Request, res: Response) => {
 Now start the server again and go to either `http://localhost:3000/api/test` or `http://localhost:3000/api/another-test` and see the JSON that is being returned.
 
 ## Conclusion
-With this we have finished the setup of our Express.js API with Node.js and TypeScript. I use [Railway](https://railway.app?referralCode=M_kVxi) (referral) to deploy my Node servers. It’s the easiest platform I have found and very cheap to get started.
+
+With this we have finished the setup of our Express.js API with Node.js and TypeScript. I use [Railway](https://railway.app?referralCode=M_kVxi) (referral) (referral) to deploy my Node servers. It’s the easiest platform I have found and very cheap to get started.
+
 
 You can find the complete code for this guide on GitHub: https://github.com/noahflk/express-typescript-esm 
