@@ -6,7 +6,7 @@ export const get = async () => {
   const posts = await getSortedPosts();
 
   return rss({
-    title: 'Noahflk blog ',
+    title: 'Noah Falk Blog ',
     description: 'Tech and personal writing',
     site: import.meta.env.SITE,
     items: posts.map((post) => ({
