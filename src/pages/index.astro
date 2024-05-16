@@ -1,18 +1,18 @@
 ---
-import BlogPostPreview from '@/components/BlogPostPreview.astro';
 import Email from '@/components/icons/Email.astro';
 import GitHub from '@/components/icons/GitHub.astro';
 import Twitter from '@/components/icons/Twitter.astro';
 import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
 import Layout from '@/layouts/Layout.astro';
 import { getSortedPosts } from '@/utils/posts';
+import { getBlogUrl } from '@/utils/url';
 
-const sortedRecentPosts = (await getSortedPosts()).slice(0, 3).filter((p) => !p.data.hidden);
+const sortedRecentPosts = (await getSortedPosts()).slice(0, 4).filter((p) => !p.data.hidden);
 ---
 
 <Layout>
   <div class="space-y-6">
-    <h1 class="text-3xl font-bold md:text-5xl">Hi, I'm Noah 👋</h1>
+    <h1 class="text-3xl font-bold md:text-4xl">Hi, I'm Noah 👋</h1>
     <h2 class="text-lg">I'm a maker and freelance web developer based in Switzerland 🇨🇭</h2>
     <div class="flex space-x-3">
       <a
@@ -41,8 +41,18 @@ const sortedRecentPosts = (await getSortedPosts()).slice(0, 3).filter((p) => !p.
       </a>
     </div>
     <div class="py-6">
-      <h3 class="text-4xl font-semibold">Latest posts</h3>
-      {sortedRecentPosts.map((p) => <BlogPostPreview post={p} />)}
+      <h3 class="text-2xl font-semibold">Latest posts</h3>
+      <ul class="py-2 space-y-2">
+        {
+          sortedRecentPosts.map((post) => (
+            <li>
+              <a class="text-lg hover:underline" href={getBlogUrl(post)}>
+                {post.data.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </Layout>
