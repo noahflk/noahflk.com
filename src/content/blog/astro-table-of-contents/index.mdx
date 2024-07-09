@@ -1,0 +1,126 @@
+---
+title: 'How to Automatically Add a Table of Contents to an Astro Blog'
+pubDate: '2024-07-09'
+summary: 'This post will show you how to automatically add a Table of Contents to an Astro blog that uses the Content Collections feature.'
+---
+
+import Image from '@/components/Image.astro';
+
+Astro [Content Collections](https://docs.astro.build/en/guides/content-collections/) is a great feature for managing your Markdown content. It can even be extended using Remark and Rehype plugins. There are plugins that will allow you to automatically create a Table of Contents for your blog posts, such as [remark-toc](https://github.com/remarkjs/remark-toc). However, I have found these solutions too limiting and not working too reliably with Astro Content Collections. Therefore, I have opted to build my custom solution, which is very simple. In this post, I will show you step-by-step how you can achieve the same.
+
+## The Goal
+
+First, let's look at what I want to achieve. At the top of all my articles, I want a bullet point list of all main headings in the article. Each item is a link that will take you to that section in the article. This whole list should be generated automatically. Here's how it should look:
+
+<Image src={import('./demonstration.png')} alt="Shows the Table of Contents and clicking on the link to get taken to the content" />
+
+## Extracting the Header Information
+
+First, we need to find out what headers our posts contain. You should have a file in your project where you render individual blog posts. For me, it is `src/pages/blog/[slug].astro`. In this file, there is a `getStaticPaths` function that gets all the blog posts through content collections. To get the headings, we need to render all posts and extract the headings. Don't worry, all of this will be done at build-time, so your page loads won't be slowed down. This is the code that will achieve this:
+
+```astro
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BlogLayout from '~/layouts/BlogLayout.astro';
+import type { MarkdownHeading } from 'astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  const headings = await Promise.all(
+    posts.map(async (post) => {
+      const data = await post.render();
+      return data.headings;
+    })
+  );
+
+  return posts.map((post, index) => ({
+    params: { slug: post.slug },
+    props: { post, headings: headings[index] },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+  headings: MarkdownHeading[];
+};
+
+const { post, headings } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogLayout {...post.data} headings={headings}>
+  <Content />
+</BlogLayout>
+```
+
+It first fetches all posts, then renders the headings for each post and finally passes them down through props to the layout of the blog.
+
+## Rendering the Table of Contents
+
+Now we have the headings in the `BlogLayout` file. To properly receive them, we need to define props and render them. We will handle the rendering of the Table of Contents in a separate component. For now, let's look at the BlogLayout component:
+
+```astro
+---
+import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import FormattedDate from '~/components/FormattedDate.astro';
+import Layout from '~/layouts/Layout.astro';
+import TableOfContents from '~/components/TableOfContents.astro';
+
+type Props = CollectionEntry<'blog'>['data'] & { headings: MarkdownHeading[] };
+
+const { title, pubDate, description, headings } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <article class="prose prose-lg prose-img:rounded-lg">
+    <div>
+      <div>
+        <h1 class="mb-5">{title}</h1>
+        <FormattedDate date={pubDate} />
+        <hr />
+      </div>
+
+      <TableOfContents headings={headings} />
+
+      <slot />
+    </div>
+  </article>
+</Layout>
+```
+
+The rendering of the Table of Contents is up to you. You can render it in any way or style you want. I have it below the title and above the blog content. Let's look at the separate `TableOfContents` component that renders it:
+
+```astro
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const filteredHeadings = headings.filter((heading) => heading.depth <= 2);
+---
+
+<nav>
+  <h2>Table of Contents</h2>
+  <ul>
+    {
+      filteredHeadings.map((heading) => (
+        <li>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+```
+
+This component is very simple. First, it filters the headings so that only the main headings (all `## Heading` in Markdown) are shown in the table. If you want, you can also render sub-headings. Then it simply renders an unordered list with links to all the headings. The slug is a version of your heading that can be put into the URL. When using Content Collections, each heading in your article already contains this slug as its ID automatically.
+
+## Conclusion
+
+That's all you need to do to automatically generate a Table of Contents for your Astro blog on each post. You can play around by redesigning the Table of Contents or adding smooth scrolling behavior. The benefit of this approach is its flexibility and simplicity.
