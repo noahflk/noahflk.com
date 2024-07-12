@@ -10,4 +10,4 @@ A list of some of the projects that I have worked on.
 - <a href="https://railtrack.ch" target="_blank">Railtrack</a> - Service to visualize train journeys
 - <a href="https://github.com/noahflk/react-relaxed" target="_blank">React Relaxed</a> - React Hooks for debouncing and throttling inputs
 - <a href="https://github.com/noahflk/react-breakout" target="_blank">React Breakout</a> - Lightweight Hook for respoinsive breakpoints in React components
-- Pingparrot - SaaS to track user activity
+- Pingparrot - SaaS to track user activity (discontinued)
