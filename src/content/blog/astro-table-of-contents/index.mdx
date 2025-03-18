@@ -1,6 +1,6 @@
 ---
 title: 'How to Automatically Add a Table of Contents to an Astro Blog'
-pubDate: '2024-07-09'
+pubDate: '2025-03-18'
 summary: 'This post will show you how to automatically add a Table of Contents to an Astro blog that uses the Content Collections feature.'
 ---
 
@@ -20,7 +20,7 @@ First, we need to find out what headers our posts contain. You should have a fil
 
 ```astro
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogLayout from '~/layouts/BlogLayout.astro';
 import type { MarkdownHeading } from 'astro';
 
@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 
   const headings = await Promise.all(
     posts.map(async (post) => {
-      const data = await post.render();
+      const data = await render(post);
       return data.headings;
     })
   );
@@ -46,7 +46,7 @@ type Props = {
 };
 
 const { post, headings } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <BlogLayout {...post.data} headings={headings}>
