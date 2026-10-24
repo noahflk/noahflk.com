@@ -20,6 +20,11 @@
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "breaking"],
       "automerge": false
+    },
+    {
+      "description": "@astrojs/sitemap 3.6.1+ reads routes from the astro:routes:resolved hook, which Astro 4.16.19 never emits, so astro build crashes with 'Cannot read properties of undefined (reading reduce)'. Keep 3.6.0 until the Astro upgrade lands, then remove this rule.",
+      "matchPackageNames": ["@astrojs/sitemap"],
+      "allowedVersions": "3.6.0"
     }
   ]
 }
